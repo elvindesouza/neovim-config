@@ -18,14 +18,13 @@ local servers = {
 	"jsonls",
 	"vimls",
 	"sumneko_lua",
-	--	"jedi-language-server",
 }
 
 -- Mason-lspconfig setup done here
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 mason_lspconfig.setup({
 	ensure_installed = servers,
-	--automatic_installation = true,
+	automatic_installation = true,
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
