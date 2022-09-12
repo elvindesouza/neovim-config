@@ -73,16 +73,20 @@ return packer.startup(function(use)
 	use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
 	use({ "numToStr/Comment.nvim" })
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
-	use({ "kyazdani42/nvim-web-devicons" })
-	use({ "kyazdani42/nvim-tree.lua" })
-	use({ "akinsho/bufferline.nvim" })
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = {
+			"kyazdani42/nvim-web-devicons", -- optional, for file icons
+		},
+	})
+	use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
 	use({ "moll/vim-bbye" })
-	use({ "nvim-lualine/lualine.nvim" })
+	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 	use({ "akinsho/toggleterm.nvim" })
 	use({ "ahmedkhalf/project.nvim" })
 	use({ "lewis6991/impatient.nvim" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
-	use({ "goolord/alpha-nvim" })
+	use({ "goolord/alpha-nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 
 	-- cmp plugins
 	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
@@ -140,6 +144,8 @@ return packer.startup(function(use)
 	use({
 		"folke/which-key.nvim",
 	})
+
+	use({ "dstein64/vim-startuptime" })
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
