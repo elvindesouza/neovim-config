@@ -38,6 +38,11 @@ packer.init({
 			})
 		end,
 	},
+	profile = {
+		enable = true,
+		threshold = 10, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+	},
+	autoremove = true, -- Remove disabled or unused plugins without prompting the user
 })
 
 local disabled_built_ins = {
@@ -92,6 +97,7 @@ return packer.startup(function(use)
 	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
 	use({ "hrsh7th/cmp-buffer" }) -- buffer completions
 	use({ "hrsh7th/cmp-path" }) -- path completions
+	use({ "hrsh7th/cmp-cmdline" }) -- command line completions
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
@@ -109,11 +115,14 @@ return packer.startup(function(use)
 	use({ "RRethy/vim-illuminate" })
 
 	-- Telescope
-	use({ "nvim-telescope/telescope.nvim" })
+	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			require("nvim-treesitter.install").update({ with_sync = true })
+		end,
 	})
 
 	-- Git
@@ -121,7 +130,7 @@ return packer.startup(function(use)
 
 	-- DAP
 	use({ "mfussenegger/nvim-dap" })
-	use({ "rcarriga/nvim-dap-ui" })
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 	use({ "ravenxrz/DAPInstall.nvim" }) -- Automatically set up your configuration after cloning packer.nvim
 
 	-- Symbol Tree "https://github.com/stevearc/aerial.nvim symbol outline
@@ -144,8 +153,6 @@ return packer.startup(function(use)
 	use({
 		"folke/which-key.nvim",
 	})
-
-	use({ "dstein64/vim-startuptime" })
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

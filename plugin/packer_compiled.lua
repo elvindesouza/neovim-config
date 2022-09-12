@@ -14,7 +14,7 @@ _G._packer.inside_compile = true
 
 local time
 local profile_info
-local should_profile = false
+local should_profile = true
 if should_profile then
   local hrtime = vim.loop.hrtime
   profile_info = {}
@@ -103,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/user/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/home/user/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -263,11 +268,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/user/.local/share/nvim/site/pack/packer/start/vim-illuminate",
     url = "https://github.com/RRethy/vim-illuminate"
-  },
-  ["vim-startuptime"] = {
-    loaded = true,
-    path = "/home/user/.local/share/nvim/site/pack/packer/start/vim-startuptime",
-    url = "https://github.com/dstein64/vim-startuptime"
   },
   ["which-key.nvim"] = {
     loaded = true,
