@@ -21,7 +21,7 @@ require("user.alpha")
 require("user.lsp")
 require("user.dap")
 --[[ require "user.aerial" ]]
-require("symbols-outline")
+require("user.symbols-outline")
 require("user.onedark")
 require("user.nvim-surround")
 require("user.hop")
