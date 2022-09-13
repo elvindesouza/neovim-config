@@ -150,4 +150,4 @@ keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<C-f>", ":Telescope oldfiles<CR>", opts)
 
 ------ Telescope
-keymap("n", "<F1>", "<Cmd>", opts)
+keymap("n", "<F1>", ":", opts)
