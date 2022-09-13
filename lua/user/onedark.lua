@@ -32,7 +32,6 @@ onedark.setup({
 		purple = "#bf68d9",
 		green = "#8ebd6b",
 		orange = "#cc9057",
-		blue = "#4fa6ed",
 		yellow = "#e2b86b",
 		cyan = "#48b0bd",
 		red = "#e55561",
