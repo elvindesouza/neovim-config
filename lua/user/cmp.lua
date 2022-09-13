@@ -137,7 +137,7 @@ cmp.setup({
 		ghost_text = true,
 	},
 	completion = {
-		keyword_length = 2,
+		keyword_length = 1,
 		completeopt = "menu,menuone",
 	},
 })
