@@ -60,6 +60,7 @@ return packer.startup(function(use)
 	}) -- Autopairs, integrates with both cmp and treesitter
 	use({
 		"numToStr/Comment.nvim",
+		after = "nvim-ts-context-commentstring",
 		config = function()
 			require("user.comment")
 		end,
