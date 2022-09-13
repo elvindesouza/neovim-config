@@ -89,8 +89,8 @@ return packer.startup(function(use)
 
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		--after = { "bufferline.nvim", "gitsigns.nvim" },
+		requires = { "kyazdani42/nvim-web-devicons" },
+		after = { "bufferline.nvim", "gitsigns.nvim", "onedark.nvim" },
 		setup = function()
 			require("user.lualine")
 		end,
@@ -262,7 +262,7 @@ return packer.startup(function(use)
 
 	use({
 		"Shatur/neovim-session-manager",
-		--disable = true,
+		disable = true,
 		requires = { "plenary.nvim" },
 		config = function()
 			-- you can configure Hop the way you like here; see :h hop-config
