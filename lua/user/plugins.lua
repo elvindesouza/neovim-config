@@ -60,7 +60,7 @@ return packer.startup(function(use)
 	}) -- Autopairs, integrates with both cmp and treesitter
 	use({
 		"numToStr/Comment.nvim",
-		after = "nvim-ts-context-commentstring",
+		after = { "nvim-ts-context-commentstring", after = "nvim-treesitter" },
 		config = function()
 			require("user.comment")
 		end,
@@ -86,21 +86,24 @@ return packer.startup(function(use)
 		end,
 	})
 	use({ "moll/vim-bbye" })
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-
+		--after = { "bufferline.nvim", "gitsigns.nvim" },
 		setup = function()
 			require("user.lualine")
 		end,
 	})
+
 	use({
 		"akinsho/toggleterm.nvim",
-		event = "BufReadPre",
+		--event = "BufRead",
 		setup = function()
 			require("user.toggleterm")
 		end,
 	})
+
 	use({ "ahmedkhalf/project.nvim" })
 	use({ "lewis6991/impatient.nvim" })
 	use({
@@ -177,10 +180,12 @@ return packer.startup(function(use)
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		requires = "p00f/nvim-ts-rainbow",
+		after = "nvim-ts-rainbow",
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
-		--event = "BufReadPre",
+		--event = "BufRead",
 		config = function()
 			require("user.treesitter")
 		end,
@@ -190,7 +195,7 @@ return packer.startup(function(use)
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = "nvim-lua/plenary.nvim",
-		after = "plenary.nvim",
+		after = { "plenary.nvim" },
 		config = function()
 			require("user.gitsigns")
 		end,
@@ -253,6 +258,16 @@ return packer.startup(function(use)
 
 	use({
 		"folke/which-key.nvim",
+	})
+
+	use({
+		"Shatur/neovim-session-manager",
+		--disable = true,
+		requires = { "plenary.nvim" },
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("user.session-manager")
+		end,
 	})
 
 	-- Put this at the end after all plugins
