@@ -36,10 +36,10 @@ null_ls.setup({
 		diagnostics.mypy,
 
 		formatting.astyle,
-		formatting.beautysh,
+		--[[ formatting.beautysh, ]]
 		formatting.clang_format,
 		formatting.shfmt,
-		formatting.beautysh,
+		--[[ formatting.beautysh, ]]
 		formatting.eslint,
 		--formatting.codespell
 		formatting.shellharden,

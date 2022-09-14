@@ -47,6 +47,7 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
+	--https://github.com/rockerBOO/awesome-neovim#project
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
 	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
@@ -262,13 +263,45 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"Shatur/neovim-session-manager",
-		disable = true,
+		"jedrzejboczar/possession.nvim",
 		requires = { "plenary.nvim" },
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
 			require("user.session-manager")
 		end,
+	})
+
+	use({
+		"CRAG666/code_runner.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		ft = { "python", "sh", "bash", "zsh", "javascript", "c", "cpp" },
+		config = function()
+			require("user.code-runner")
+		end,
+	})
+
+	--https://github.com/iamcco/markdown-preview.nvim
+	use({
+		"frabjous/knap",
+		config = function()
+			--require("knap").setup({
+			-- your override config
+			--})
+			keymap("i", "<F7>", function()
+				require("knap").toggle_autopreviewing()
+			end)
+			keymap("v", "<F7>", function()
+				require("knap").toggle_autopreviewing()
+			end)
+			keymap("n", "<F7>", function()
+				require("knap").toggle_autopreviewing()
+			end)
+		end,
+		ft = { "markdown" },
+	})
+
+	use({
+		"jghauser/follow-md-links.nvim",
+		ft = { "markdown" },
 	})
 
 	-- Put this at the end after all plugins

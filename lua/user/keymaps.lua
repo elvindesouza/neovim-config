@@ -151,3 +151,5 @@ keymap("n", "<C-f>", ":Telescope oldfiles<CR>", opts)
 
 ------ Telescope
 keymap("n", "<F1>", ":", opts)
+--keymap("n", ";", ":", opts)
+
