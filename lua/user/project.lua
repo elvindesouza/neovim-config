@@ -11,8 +11,8 @@ project.setup({
 	-- patterns used to detect root dir, when **"pattern"** is in detection_methods
 	patterns = { ".git", "Makefile", "package.json" },
 
-        manual_mode=true,
-    show_hidden=true,
+	manual_mode = false,
+	show_hidden = true,
 })
 
 local tele_status_ok, telescope = pcall(require, "telescope")

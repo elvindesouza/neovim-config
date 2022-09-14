@@ -61,6 +61,7 @@ return packer.startup(function(use)
 	use({
 		"numToStr/Comment.nvim",
 		after = { "nvim-ts-context-commentstring", after = "nvim-treesitter" },
+		event = "BufWinEnter",
 		config = function()
 			require("user.comment")
 		end,
@@ -80,7 +81,7 @@ return packer.startup(function(use)
 	use({
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
-		after = "nvim-web-devicons",
+		event = "BufWinEnter",
 		config = function()
 			require("user.bufferline")
 		end,
@@ -90,8 +91,8 @@ return packer.startup(function(use)
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
-		after = { "bufferline.nvim", "gitsigns.nvim", "onedark.nvim" },
-		setup = function()
+		--after = { "bufferline.nvim", "gitsigns.nvim", "onedark.nvim" },
+		config = function()
 			require("user.lualine")
 		end,
 	})
@@ -99,7 +100,7 @@ return packer.startup(function(use)
 	use({
 		"akinsho/toggleterm.nvim",
 		--event = "BufRead",
-		setup = function()
+		config = function()
 			require("user.toggleterm")
 		end,
 	})
@@ -110,7 +111,7 @@ return packer.startup(function(use)
 		"lukas-reineke/indent-blankline.nvim",
 		event = "BufRead",
 		cmd = "IndentBlanklineRefresh",
-		setup = function()
+		config = function()
 			require("user.indentline")
 		end,
 	})
@@ -160,7 +161,7 @@ return packer.startup(function(use)
 	use({
 		"RRethy/vim-illuminate",
 		event = "BufRead",
-		setup = function()
+		config = function()
 			require("user.illuminate")
 		end,
 	})
@@ -172,7 +173,7 @@ return packer.startup(function(use)
 		after = { "plenary.nvim" },
 		cmd = "Telescope",
 		module = "telescope",
-		setup = function()
+		config = function()
 			require("user.telescope")
 		end,
 	})
@@ -180,8 +181,8 @@ return packer.startup(function(use)
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		requires = "p00f/nvim-ts-rainbow",
-		after = "nvim-ts-rainbow",
+		requires = { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
+		event = "BufWinEnter",
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
@@ -205,7 +206,7 @@ return packer.startup(function(use)
 	use({
 		"mfussenegger/nvim-dap",
 		cmd = { "BreakpointToggle", "Debug", "DapREPL" },
-		setup = function()
+		config = function()
 			require("user.dap")
 		end,
 	})
@@ -217,7 +218,7 @@ return packer.startup(function(use)
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
 		after = "nvim-lspconfig",
-		setup = function()
+		config = function()
 			require("user.symbols-outline")
 		end,
 	})
@@ -225,7 +226,7 @@ return packer.startup(function(use)
 	-- Colorschemes
 	use({
 		"navarasu/onedark.nvim",
-		setup = function()
+		config = function()
 			require("user.onedark")
 		end,
 	}) -- https://github.com/navarasu/onedark.nvim colourscheme
