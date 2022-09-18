@@ -19,28 +19,32 @@ local completion = null_ls.builtins.completion
 
 -- https://github.com/prettier-solidity/prettier-plugin-solidity
 null_ls.setup({
+	on_init = function(new_client, _)
+		new_client.offset_encoding = "utf-16"
+	end,
+
 	debug = false,
 	sources = {
-		code_actions.eslint,
+		--code_actions.eslint,
 		--code_actions.gitsigns,
 		--code_actions.proselint,
 		code_actions.shellcheck,
 		diagnostics.shellcheck,
-		diagnostics.clang_check,
-		diagnostics.cppcheck,
-		diagnostics.cpplint,
+		--diagnostics.clang_check,
+		--diagnostics.cppcheck,
+		--diagnostics.cpplint,
 
 		diagnostics.codespell,
 		diagnostics.flake8,
 		diagnostics.luacheck,
 		diagnostics.mypy,
 
-		formatting.astyle,
+		--formatting.astyle,
 		--[[ formatting.beautysh, ]]
-		formatting.clang_format,
+		--formatting.clang_format,
 		formatting.shfmt,
 		--[[ formatting.beautysh, ]]
-		formatting.eslint,
+		--formatting.eslint,
 		--formatting.codespell
 		formatting.shellharden,
 		formatting.prettier.with({

@@ -36,7 +36,7 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "<S-q>", "<cmd>Bdelete<CR>", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
@@ -74,10 +74,12 @@ keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").locked("comment.linewise")(vim.fn.visualmode())<CR>')
+--[[ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts) ]]
+--[[ keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").locked("comment.linewise")(vim.fn.visualmode())<CR>') ]]
 keymap("n", "", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
+keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
+keymap("x", "<C-/>", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
@@ -153,3 +155,6 @@ keymap("n", "<C-f>", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<F1>", ":", opts)
 --keymap("n", ";", ":", opts)
 
+keymap("n", "<M-z>", "<CMD>set wrap<CR>", opts)
+
+keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
