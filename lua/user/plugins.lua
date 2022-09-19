@@ -157,7 +157,7 @@ return packer.startup(function(use)
 	--use({ "hrsh7th/cmp-nvim-lua" })
 
 	-- snippets
-	use({ "L3MON4D3/LuaSnip", after = "nvim-cmp", tag = "v<CurrentMajor>.*" }) --snippet engine
+	use({ "L3MON4D3/LuaSnip", after = "nvim-cmp" }) --snippet engine
 	use({
 		"rafamadriz/friendly-snippets",
 		after = "LuaSnip",
@@ -327,6 +327,19 @@ return packer.startup(function(use)
 				-- refer to the configuration section below
 			})
 		end,
+	})
+
+	use({
+		"bennypowers/nvim-regexplainer",
+		config = function()
+			require("regexplainer").setup({
+				filetypes = "awk",
+			})
+		end,
+		requires = {
+			"nvim-treesitter/nvim-treesitter",
+			"MunifTanjim/nui.nvim",
+		},
 	})
 
 	--https://github.com/TimUntersberger/neogit

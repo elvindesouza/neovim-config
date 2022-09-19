@@ -51,19 +51,21 @@ vim.cmd([[
     autocmd FileType gitcommit setlocal wrap
     autocmd FileType gitcommit setlocal spell
   augroup end
+
   augroup _markdown
     autocmd!
     autocmd FileType markdown setlocal wrap
     autocmd FileType markdown setlocal spell
   augroup end
+
   augroup _auto_resize
     autocmd!
     autocmd VimResized * tabdo wincmd = 
   augroup end
 
- augroup _lsp
-   autocmd!
-   autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
- augroup end
+ " augroup _lsp
+ "   autocmd!
+ "   autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+ " augroup end
 
 ]])

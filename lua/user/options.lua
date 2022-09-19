@@ -57,4 +57,4 @@ vim.cmd("set ffs=unix,dos,mac")
 --vim.cmd("set completeopt+=noinsert ")
 --vim.cmd("set completeopt+=menuone")
 
-vim.cmd("set guifont=Iosevka_Nerd_Font_Mono:h26")
+vim.cmd("set guifont=Iosevka_Nerd_Font_Mono:h28")
