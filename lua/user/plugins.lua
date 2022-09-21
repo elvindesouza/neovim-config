@@ -18,8 +18,8 @@ end
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd([[
   augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    " autocmd!
+    " autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -179,10 +179,12 @@ return packer.startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
+		
 	--[[ use { "williamboman/nvim-lsp-installer"} -- simple to use language server installer ]]
 	use({ "williamboman/mason.nvim" })
 	use({ "williamboman/mason-lspconfig.nvim" })
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+
 	use({
 		"RRethy/vim-illuminate",
 		event = "BufRead",
@@ -243,13 +245,15 @@ return packer.startup(function(use)
 		end,
 	})
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, after = "nvim-dap" })
-	use({ "ravenxrz/DAPInstall.nvim" }) -- Automatically set up your configuration after cloning packer.nvim
+	use({ "ravenxrz/DAPInstall.nvim", after="nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
 
 	-- Symbol Tree
 	--https://github.com/simrat39/symbols-outline.nvim
+	--https://github.com/stevearc/aerial.nvim
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
+		event = "BufWinEnter",
 		after = "nvim-lspconfig",
 		config = function()
 			require("user.symbols-outline")
@@ -276,7 +280,7 @@ return packer.startup(function(use)
 	-- https://github.com/phaazon/hop.nvim#usage
 	use({
 		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
+		--branch = "v2", -- optional but strongly recommended
 		--[[ cmd = { ]]
 		--[[ 	"HopWord", ]]
 		--[[ 	"HopLine", ]]
@@ -297,13 +301,14 @@ return packer.startup(function(use)
 		config = function()
 			require("user.which-key")
 		end,
+		event = "VimEnter",
 	})
 
 	use({
 		"jedrzejboczar/possession.nvim",
 		requires = { "plenary.nvim" },
 		config = function()
-			require("user.session-manager")
+			require("user.possession")
 		end,
 	})
 
@@ -334,6 +339,7 @@ return packer.startup(function(use)
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
+		event = "BufWinEnter",
 		config = function()
 			require("trouble").setup({
 				-- your configuration comes here
@@ -343,10 +349,36 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"Pocco81/auto-save.nvim",
+		config = function()
+			require("auto-save").setup({
+				-- your config goes here
+				-- or just leave it empty :)
+			})
+		end,
+		event = "InsertLeavePre",
+	})
+
+	use({
+		"Pocco81/true-zen.nvim",
+		event = "BufWinEnter",
+		config = function()
+			require("true-zen").setup({
+				integrations = {
+					tmux = true, -- hide tmux status bar in (minimalist, ataraxis)
+					lualine = true, -- hide nvim-lualine (ataraxis)
+				},
+			})
+		end,
+	})
+
 	--https://github.com/TimUntersberger/neogit
 	--use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
 	-- https://github.com/nvim-neorg/neorg
+	--https://github.com/ray-x/navigator.lua
+	--https://github.com/stevearc/dressing.nvim
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
