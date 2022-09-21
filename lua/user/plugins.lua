@@ -113,7 +113,12 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({ "ahmedkhalf/project.nvim" })
+	use({
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("user.project")
+		end,
+	})
 	use({ "lewis6991/impatient.nvim" })
 
 	-- https://github.com/lukas-reineke/indent-blankline.nvim
@@ -125,7 +130,13 @@ return packer.startup(function(use)
 			require("user.indentline")
 		end,
 	})
-	use({ "goolord/alpha-nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+	use({
+		"goolord/alpha-nvim",
+		requires = { "kyazdani42/nvim-web-devicons" },
+		config = function()
+			require("user.alpha")
+		end,
+	})
 
 	-- cmp plugins
 	use({
@@ -283,6 +294,9 @@ return packer.startup(function(use)
 
 	use({
 		"folke/which-key.nvim",
+		config = function()
+			require("user.which-key")
+		end,
 	})
 
 	use({
@@ -327,19 +341,6 @@ return packer.startup(function(use)
 				-- refer to the configuration section below
 			})
 		end,
-	})
-
-	use({
-		"bennypowers/nvim-regexplainer",
-		config = function()
-			require("regexplainer").setup({
-				filetypes = "awk",
-			})
-		end,
-		requires = {
-			"nvim-treesitter/nvim-treesitter",
-			"MunifTanjim/nui.nvim",
-		},
 	})
 
 	--https://github.com/TimUntersberger/neogit
