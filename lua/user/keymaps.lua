@@ -153,10 +153,12 @@ keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 ------ Telescope
 keymap("n", "<C-f>", ":Telescope oldfiles<CR>", opts)
 
------- Telescope
 keymap("n", "<F1>", ":", opts)
 --keymap("n", ";", ":", opts)
 
 keymap("n", "<M-z>", "<CMD>set wrap<CR>", opts)
 
 keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
+
+
+keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR>", opts)

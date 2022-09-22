@@ -18,8 +18,8 @@ end
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd([[
   augroup packer_user_config
-    " autocmd!
-    " autocmd BufWritePost plugins.lua source <afile> | PackerSync
+      autocmd!
+      autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -47,10 +47,14 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	--https://github.com/rockerBOO/awesome-neovim#project
+	-- https://github.com/rockerBOO/awesome-neovim#project
+    -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
+
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
+
 	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
+
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
@@ -59,6 +63,7 @@ return packer.startup(function(use)
 		after = "nvim-cmp",
 		requires = "nvim-cmp",
 	}) -- Autopairs, integrates with both cmp and treesitter
+
 	use({
 		"numToStr/Comment.nvim",
 		after = { "nvim-ts-context-commentstring", after = "nvim-treesitter" },
@@ -67,6 +72,7 @@ return packer.startup(function(use)
 			require("user.comment")
 		end,
 	})
+
 	use({ "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" })
 
 	-- https://github.com/kyazdani42/nvim-tree.lua
@@ -92,6 +98,7 @@ return packer.startup(function(use)
 			require("user.bufferline")
 		end,
 	})
+
 	use({ "moll/vim-bbye" })
 
 	-- https://github.com/nvim-lualine/lualine.nvim
@@ -119,6 +126,7 @@ return packer.startup(function(use)
 			require("user.project")
 		end,
 	})
+
 	use({ "lewis6991/impatient.nvim" })
 
 	-- https://github.com/lukas-reineke/indent-blankline.nvim
@@ -130,6 +138,7 @@ return packer.startup(function(use)
 			require("user.indentline")
 		end,
 	})
+
 	use({
 		"goolord/alpha-nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
@@ -144,9 +153,13 @@ return packer.startup(function(use)
 		requires = {
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-			{
+			{ --https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
 				"hrsh7th/cmp-nvim-lsp-signature-help",
 				after = "nvim-cmp",
+			},
+			{ --https://github.com/ray-x/lsp_signature.nvim
+				"ray-x/lsp_signature.nvim",
+				disable = true,
 			},
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
@@ -160,15 +173,10 @@ return packer.startup(function(use)
 			require("user.cmp")
 		end,
 	}) -- The completion plugin
-	--use({ "hrsh7th/cmp-buffer" }) -- buffer completions
-	--use({ "hrsh7th/cmp-path" }) -- path completions
-	--use({ "hrsh7th/cmp-cmdline" }) -- command line completions
-	--use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
-	--use({ "hrsh7th/cmp-nvim-lsp" })
-	--use({ "hrsh7th/cmp-nvim-lua" })
 
 	-- snippets
 	use({ "L3MON4D3/LuaSnip", after = "nvim-cmp" }) --snippet engine
+
 	use({
 		"rafamadriz/friendly-snippets",
 		after = "LuaSnip",
@@ -179,10 +187,12 @@ return packer.startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-		
+
 	--[[ use { "williamboman/nvim-lsp-installer"} -- simple to use language server installer ]]
 	use({ "williamboman/mason.nvim" })
+
 	use({ "williamboman/mason-lspconfig.nvim" })
+
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 
 	use({
@@ -198,8 +208,8 @@ return packer.startup(function(use)
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
-		after = { "plenary.nvim" },
-		cmd = "Telescope",
+		after = "plenary.nvim",
+		--cmd = "Telescope",
 		module = "telescope",
 		config = function()
 			require("user.telescope")
@@ -223,7 +233,33 @@ return packer.startup(function(use)
 			require("user.treesitter")
 		end,
 	})
-
+	use({
+		"abecodes/tabout.nvim",
+		config = function()
+			require("tabout").setup({
+				tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+				backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+				act_as_tab = true, -- shift content if tab out is not possible
+				act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+				default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+				default_shift_tab = "<C-d>", -- reverse shift default action,
+				enable_backwards = true, -- well ...
+				completion = true, -- if the tabkey is used in a completion pum
+				tabouts = {
+					{ open = "'", close = "'" },
+					{ open = '"', close = '"' },
+					{ open = "`", close = "`" },
+					{ open = "(", close = ")" },
+					{ open = "[", close = "]" },
+					{ open = "{", close = "}" },
+				},
+				ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+				exclude = {}, -- tabout will ignore these filetypes
+			})
+		end,
+		wants = { "nvim-treesitter" }, -- or require if not used so far
+		after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
+	})
 	-- Git
 	-- https://github.com/lewis6991/gitsigns.nvim
 	use({
@@ -244,12 +280,14 @@ return packer.startup(function(use)
 			require("user.dap")
 		end,
 	})
+
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, after = "nvim-dap" })
-	use({ "ravenxrz/DAPInstall.nvim", after="nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
+
+	use({ "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
 
 	-- Symbol Tree
-	--https://github.com/simrat39/symbols-outline.nvim
-	--https://github.com/stevearc/aerial.nvim
+	-- https://github.com/simrat39/symbols-outline.nvim
+	-- https://github.com/stevearc/aerial.nvim
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
@@ -338,6 +376,7 @@ return packer.startup(function(use)
 	--https://github.com/folke/trouble.nvim
 	use({
 		"folke/trouble.nvim",
+		disable = true,
 		requires = "kyazdani42/nvim-web-devicons",
 		event = "BufWinEnter",
 		config = function()
@@ -362,7 +401,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/true-zen.nvim",
-		event = "BufWinEnter",
+		event = "BufRead",
 		config = function()
 			require("true-zen").setup({
 				integrations = {
@@ -374,11 +413,13 @@ return packer.startup(function(use)
 	})
 
 	--https://github.com/TimUntersberger/neogit
-	--use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 
 	-- https://github.com/nvim-neorg/neorg
 	--https://github.com/ray-x/navigator.lua
 	--https://github.com/stevearc/dressing.nvim
+    --https://github.com/rcarriga/nvim-notify#Installation
+    -- https://github.com/nvim-pack/nvim-spectre
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
