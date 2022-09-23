@@ -71,7 +71,7 @@ telescope.setup({
 				preview_width = 0.5,
 			},
 			vertical = {
-				mirror = true,
+				--[[ mirror = true, ]]
 				preview_cutoff = 0.5,
 			},
 			flex = {

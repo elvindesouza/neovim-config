@@ -18,6 +18,12 @@ local servers = {
 	"jsonls",
 	"vimls",
 	"sumneko_lua",
+	"jdtls",
+	--[[ "groovyls", ]]
+	"asm_lsp",
+	"marksman",
+	--[[ "phpactor", ]]
+	"sqls",
 }
 
 -- Mason-lspconfig setup done here

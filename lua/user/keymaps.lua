@@ -69,6 +69,8 @@ keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+keymap("n", "<leader>O", ":Telescope lsp_document_symbols<CR>", opts)
+keymap("n", "<C-S-o>", ":Telescope lsp_document_symbols<CR>", opts)
 
 -- Git
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
@@ -159,6 +161,5 @@ keymap("n", "<F1>", ":", opts)
 keymap("n", "<M-z>", "<CMD>set wrap<CR>", opts)
 
 keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
-
 
 keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR>", opts)

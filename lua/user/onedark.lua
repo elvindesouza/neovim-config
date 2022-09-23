@@ -17,13 +17,6 @@ onedark.setup({
 	},
 	-- Custom Highlights --
 	colors = {
-		--[[ bg0 = "#000000", ]]
-		--[[ bg1 = "#111111", ]]
-		--[[ bg2 = "#222222", ]]
-		--[[ bg3 = "#232323", ]]
-		--[[ fg = "#ffffff", ]]
-		--[[ black = "#000000", ]]
-		--[[ blue = "#82AAFF", ]]
 
 		---defaults below
 		black = "#0e1013",
@@ -38,7 +31,7 @@ onedark.setup({
 		purple = "#bf68d9",
 		green = "#8ebd6b",
 		orange = "#cc9057",
-		--[[ blue = "#4fa6ed", ]]
+		blue = "#4fa6ed",
 		yellow = "#e2b86b",
 		cyan = "#48b0bd",
 		red = "#e55561",
@@ -52,12 +45,23 @@ onedark.setup({
 		diff_delete = "#2d2223",
 		diff_change = "#172a3a",
 		diff_text = "#274964",
+		-- overrides
+		bg0 = "#000000",
+		--[[ bg1 = "#111111", ]]
+		--[[ bg2 = "#222222", ]]
+		--[[ bg3 = "#232323", ]]
+		fg = "#ffffff",
+		--[[ black = "#000000", ]]
+		blue = "#82AAFF",
 	}, -- Override default colors
 	highlights = {
 		TSOperator = { fg = "$purple" },
 		TSPunctBracket = { fg = "$yellow" },
+		TSInclude = { fg = "$yellow" },
 		TSFunction = { fg = "#82AAFF" },
 		TSMethod = { fg = "#82AAFF" },
+		TSVariable = { fg = "#ffffcf" },
+		TSVariableBuiltin = { fg = "#ffffcf" },
 	}, -- Override highlight groups
 })
 

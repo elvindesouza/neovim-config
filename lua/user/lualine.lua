@@ -18,21 +18,21 @@ local diagnostics = {
 	always_visible = false,
 }
 
-local diff = {
-	"diff",
-	colored = true,
-	symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols
-	cond = hide_in_width,
-}
+--[[ local diff = { ]]
+--[[ 	"diff", ]]
+--[[ 	colored = true, ]]
+--[[ 	symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols ]]
+--[[ 	cond = hide_in_width, ]]
+--[[ } ]]
 
-local filetype = {
-	"filetype",
-	icons_enabled = true,
-}
+--[[ local filetype = { ]]
+--[[ 	"filetype", ]]
+--[[ 	icons_enabled = true, ]]
+--[[ } ]]
 
-local hide_in_width_100 = function()
-	return vim.o.columns > 100
-end
+--[[ local hide_in_width_100 = function() ]]
+--[[ 	return vim.o.columns > 100 ]]
+--[[ end ]]
 
 local current_signature = {
 	function()
@@ -58,9 +58,9 @@ local current_signature = {
 	padding = 0,
 }
 
-local spaces = function()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
+--[[ local spaces = function() ]]
+--[[ 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth") ]]
+--[[ end ]]
 --
 lualine.setup({
 	options = {
