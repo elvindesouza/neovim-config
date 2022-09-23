@@ -10,7 +10,7 @@ bufferline.setup({
 		right_mouse_command = "Bdelete %d", -- can be a string | function, see "Mouse actions"
 		offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
 		separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
-		tab_size = 4,
+		tab_size = 3,
 		autosize = true,
 		diagnostics = "nvim_lsp",
 		show_buffer_close_icons = false,

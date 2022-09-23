@@ -18,9 +18,9 @@ onedark.setup({
 	-- Custom Highlights --
 	colors = {
 		bg0 = "#000000",
-		bg1 = "#111111",
-		bg2 = "#222222",
-		bg3 = "#232323",
+		--[[ bg1 = "#111111", ]]
+		--[[ bg2 = "#222222", ]]
+		--[[ bg3 = "#232323", ]]
 		fg = "#ffffff",
 		black = "#000000",
 		blue = "#82AAFF",

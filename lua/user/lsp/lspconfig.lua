@@ -54,6 +54,5 @@ for _, server in pairs(servers) do
 		local awk_opts = require("user.lsp.settings.awk_ls")
 		opts = vim.tbl_deep_extend("force", awk_opts, opts)
 	end
-
 	lspconfig[server].setup(opts)
 end

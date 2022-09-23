@@ -48,7 +48,8 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
 	-- https://github.com/rockerBOO/awesome-neovim#project
-    -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
+	-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
+	-- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
 
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
@@ -156,10 +157,13 @@ return packer.startup(function(use)
 			{ --https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
 				"hrsh7th/cmp-nvim-lsp-signature-help",
 				after = "nvim-cmp",
+				disable = true,
 			},
 			{ --https://github.com/ray-x/lsp_signature.nvim
 				"ray-x/lsp_signature.nvim",
-				disable = true,
+				config = function()
+					require("user.lsp-signature")
+				end,
 			},
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
@@ -222,7 +226,10 @@ return packer.startup(function(use)
 		requires = {
 			{ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
 			{ "nvim-treesitter/nvim-treesitter-context", after = "nvim-treesitter" },
-			{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
+			{ --https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				after = "nvim-treesitter",
+			},
 		},
 		event = "BufWinEnter",
 		run = function()
@@ -391,10 +398,7 @@ return packer.startup(function(use)
 	use({
 		"Pocco81/auto-save.nvim",
 		config = function()
-			require("auto-save").setup({
-				-- your config goes here
-				-- or just leave it empty :)
-			})
+			require("user.auto-save")
 		end,
 		event = "InsertLeavePre",
 	})
@@ -406,20 +410,28 @@ return packer.startup(function(use)
 			require("true-zen").setup({
 				integrations = {
 					tmux = true, -- hide tmux status bar in (minimalist, ataraxis)
-					lualine = true, -- hide nvim-lualine (ataraxis)
 				},
 			})
 		end,
 	})
 
+	use({
+		"SmiteshP/nvim-navic",
+		requires = "neovim/nvim-lspconfig",
+		after = "nvim-lspconfig",
+		config = function()
+			require("user.navic")
+		end,
+	})
 	--https://github.com/TimUntersberger/neogit
 	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 
 	-- https://github.com/nvim-neorg/neorg
-	--https://github.com/ray-x/navigator.lua
+	-- https://github.com/ray-x/navigator.lua
 	--https://github.com/stevearc/dressing.nvim
-    --https://github.com/rcarriga/nvim-notify#Installation
-    -- https://github.com/nvim-pack/nvim-spectre
+	--https://github.com/rcarriga/nvim-notify#Installation
+	-- https://github.com/nvim-pack/nvim-spectre
+	-- https://github.com/kdheepak/lazygit.nvim
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

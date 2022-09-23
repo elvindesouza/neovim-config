@@ -37,7 +37,7 @@ null_ls.setup({
 		diagnostics.codespell,
 		diagnostics.flake8,
 		diagnostics.luacheck,
-		diagnostics.mypy,
+		--[[ diagnostics.mypy, ]]
 
 		--formatting.astyle,
 		--[[ formatting.beautysh, ]]
