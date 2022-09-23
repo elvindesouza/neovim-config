@@ -46,9 +46,10 @@ local current_signature = {
 		end
 		local sig = require("lsp_signature").status_line(5)
 		local hint = sig.hint
+		local icon = require("user.icons").diagnostics.Hint
 
 		if not require("user.functions").isempty(hint) then
-			return sig.label .. "🐼" .. hint
+			return sig.label .. icon .. hint
 		end
 
 		return ""
@@ -77,8 +78,8 @@ lualine.setup({
 		lualine_a = {
 			{ "mode", separator = { left = "" }, right_padding = 0 },
 		},
-		lualine_b = { current_signature },
-		lualine_c = { diagnostics },
+		lualine_b = { diagnostics },
+		lualine_c = { current_signature },
 		lualine_x = { { navic.get_location, cond = navic.is_available } },
 		lualine_y = {},
 		--[[ lualine_ diffz = { "progress" }, ]]

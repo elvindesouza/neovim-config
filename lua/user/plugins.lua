@@ -243,26 +243,7 @@ return packer.startup(function(use)
 	use({
 		"abecodes/tabout.nvim",
 		config = function()
-			require("tabout").setup({
-				tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-				backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-				act_as_tab = true, -- shift content if tab out is not possible
-				act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-				default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-				default_shift_tab = "<C-d>", -- reverse shift default action,
-				enable_backwards = true, -- well ...
-				completion = true, -- if the tabkey is used in a completion pum
-				tabouts = {
-					{ open = "'", close = "'" },
-					{ open = '"', close = '"' },
-					{ open = "`", close = "`" },
-					{ open = "(", close = ")" },
-					{ open = "[", close = "]" },
-					{ open = "{", close = "}" },
-				},
-				ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-				exclude = {}, -- tabout will ignore these filetypes
-			})
+			require("user.tabout")
 		end,
 		wants = { "nvim-treesitter" }, -- or require if not used so far
 		after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
@@ -426,12 +407,21 @@ return packer.startup(function(use)
 	--https://github.com/TimUntersberger/neogit
 	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 
+	-- https://github.com/rcarriga/nvim-notify#Installation
+	use({
+		"rcarriga/nvim-notify",
+		after = "alpha-nvim",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	})
+
 	-- https://github.com/nvim-neorg/neorg
 	-- https://github.com/ray-x/navigator.lua
-	--https://github.com/stevearc/dressing.nvim
-	--https://github.com/rcarriga/nvim-notify#Installation
+	-- https://github.com/stevearc/dressing.nvim
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
+	-- https://github.com/nvim-treesitter/playground
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

@@ -17,21 +17,28 @@ onedark.setup({
 	},
 	-- Custom Highlights --
 	colors = {
-		bg0 = "#000000",
+		--[[ bg0 = "#000000", ]]
 		--[[ bg1 = "#111111", ]]
 		--[[ bg2 = "#222222", ]]
 		--[[ bg3 = "#232323", ]]
-		fg = "#ffffff",
-		black = "#000000",
-		blue = "#82AAFF",
+		--[[ fg = "#ffffff", ]]
+		--[[ black = "#000000", ]]
+		--[[ blue = "#82AAFF", ]]
 
 		---defaults below
+		black = "#0e1013",
+		bg0 = "#1f2329",
+		bg1 = "#282c34",
+		bg2 = "#30363f",
+		bg3 = "#323641",
 		bg_d = "#181b20",
 		bg_blue = "#61afef",
 		bg_yellow = "#e8c88c",
+		fg = "#a0a8b7",
 		purple = "#bf68d9",
 		green = "#8ebd6b",
 		orange = "#cc9057",
+		--[[ blue = "#4fa6ed", ]]
 		yellow = "#e2b86b",
 		cyan = "#48b0bd",
 		red = "#e55561",
@@ -49,6 +56,8 @@ onedark.setup({
 	highlights = {
 		TSOperator = { fg = "$purple" },
 		TSPunctBracket = { fg = "$yellow" },
+		TSFunction = { fg = "#82AAFF" },
+		TSMethod = { fg = "#82AAFF" },
 	}, -- Override highlight groups
 })
 
