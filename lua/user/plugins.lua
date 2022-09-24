@@ -378,6 +378,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/auto-save.nvim",
+        disable=true,
 		config = function()
 			require("user.auto-save")
 		end,
@@ -426,6 +427,7 @@ return packer.startup(function(use)
 	use({
 		"nvim-treesitter/playground",
 		after = "nvim-treesitter",
+        disable=true,
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				playground = {
