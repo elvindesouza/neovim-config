@@ -14,6 +14,7 @@ local conf = require("telescope.config").values
 
 telescope.setup({
 	defaults = {
+		sorting_strategy = "ascending",
 		prompt_prefix = " ",
 		selection_caret = " ",
 		path_display = { "smart" },
@@ -64,7 +65,7 @@ telescope.setup({
 			},
 		},
 		layout_config = {
-			--[[ prompt_position = "top", ]]
+			prompt_position = "top",
 			horizontal = {
 				mirror = true,
 				preview_cutoff = 100,

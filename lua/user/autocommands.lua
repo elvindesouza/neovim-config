@@ -63,9 +63,10 @@ vim.cmd([[
     autocmd VimResized * tabdo wincmd = 
   augroup end
 
+ " autoformat
  augroup _lsp
-   autocmd!
-   autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+   " autocmd!
+   " autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
  augroup end
 
 ]])
