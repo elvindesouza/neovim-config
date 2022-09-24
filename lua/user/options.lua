@@ -56,7 +56,8 @@ cmd("filetype indent on")
 cmd("set backspace=eol,start,indent")
 cmd("set ffs=unix,dos,mac")
 opt.inccommand = "split"
---cmd("set completeopt+=noinsert ")
---cmd("set completeopt+=menuone")
-
 cmd("set guifont=Iosevka_Nerd_Font_Mono:h28")
+
+if vim.version().minor > 7 then
+	opt.cmdheight = 0
+end
