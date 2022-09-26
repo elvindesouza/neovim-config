@@ -19,9 +19,9 @@ opt.splitbelow = true -- force all horizontal splits to go below current window
 opt.splitright = true -- force all vertical splits to go to the right of current window
 opt.swapfile = false -- creates a swapfile
 opt.termguicolors = true -- set term gui colors (most terminals support this)
-opt.timeoutlen = 600 -- time to wait for a mapped sequence to complete (in milliseconds)
+opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.undofile = true -- enable persistent undo
-opt.updatetime = 300 -- faster completion (4000ms default)
+opt.updatetime = 100 -- faster completion (4000ms default)
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.expandtab = true -- convert tabs to spaces
 opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
@@ -36,7 +36,8 @@ opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift 
 opt.wrap = false -- display lines as one long line
 opt.scrolloff = 8 -- is one of my fav
 opt.sidescrolloff = 8
-opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+opt.guifont="Iosevka_Nerd_Font_Mono:h28"
+opt.title=true
 opt.fillchars.eob = " "
 opt.shortmess:append("c")
 opt.whichwrap:append("<,>,[,],h,l")
@@ -56,7 +57,6 @@ cmd("filetype indent on")
 cmd("set backspace=eol,start,indent")
 cmd("set ffs=unix,dos,mac")
 opt.inccommand = "split"
-cmd("set guifont=Iosevka_Nerd_Font_Mono:h28")
 
 if vim.version().minor > 7 then
 	opt.cmdheight = 0

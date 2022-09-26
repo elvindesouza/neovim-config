@@ -3,6 +3,8 @@ if not status_ok_navic then
 	return
 end
 
+local icons = require("user.icons")
+
 navic.setup({
 	icons = {
 		File = " ",
@@ -32,8 +34,8 @@ navic.setup({
 		Operator = " ",
 		TypeParameter = " ",
 	},
-	highlight = false,
-	separator = " > ",
+	highlight = true,
+	separator = " " .. icons.ui.ChevronRight .. " ",
 	depth_limit = 0,
 	depth_limit_indicator = "..",
 })

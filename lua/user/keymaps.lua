@@ -163,3 +163,36 @@ keymap("n", "<M-z>", "<CMD>set wrap<CR>", opts)
 keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
 
 keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR>", opts)
+
+keymap("n", "<a-n>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
+keymap("n", "<a-p>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+
+-- place this in one of your configuration file(s)
+keymap(
+	"",
+	"f",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+	opts
+)
+keymap(
+	"",
+	"F",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+	opts
+)
+keymap(
+	"",
+	"t",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+	opts
+)
+keymap(
+	"",
+	"T",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
+	opts
+)
+
+keymap("n", "<leader>w", "<cmd>HopWordMW<cr>", opts)
+keymap("n", "<leader>j", "<cmd>HopLineStartMW<cr>", opts)
+keymap("n", "<leader>/", "<cmd>HopAnywhereMW<cr>", opts)

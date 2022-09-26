@@ -11,11 +11,12 @@ local sorters = require("telescope.sorters")
 local finders = require("telescope.finders")
 local themes = require("telescope.themes")
 local conf = require("telescope.config").values
+local icons = require("user.icons")
 
 telescope.setup({
 	defaults = {
 		sorting_strategy = "ascending",
-		prompt_prefix = " ",
+		prompt_prefix = icons.ui.Telescope,
 		selection_caret = " ",
 		path_display = { "smart" },
 		file_ignore_patterns = {

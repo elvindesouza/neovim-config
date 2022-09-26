@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-icons = require("user.icons")
+local icons = require("user.icons")
 
 local opts = {
 	highlight_hovered_item = true,
@@ -40,7 +40,7 @@ local opts = {
 	symbols = {
 		File = { icon = icons.kind.File, hl = "TSURI" },
 		Module = { icon = icons.kind.Module, hl = "TSNamespace" },
-		Namespace = { icon = "", hl = "TSNamespace" },
+		Namespace = { icon = icons.kind.Module, hl = "TSNamespace" },
 		Package = { icon = icons.ui.Package, hl = "TSNamespace" },
 		Class = { icon = icons.kind.Class, hl = "TSType" },
 		Method = { icon = icons.kind.Method, hl = "TSMethod" },

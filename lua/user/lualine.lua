@@ -1,10 +1,13 @@
+-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/lualine.lua
+-- TODO yoink his nice lualine config
+--
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
 	return
 end
 
 local hide_in_width = function()
-	return vim.fn.winwidth(0) > 80
+	return vim.fn.winwidth(0) > 50
 end
 
 local navic = require("nvim-navic")
@@ -18,21 +21,21 @@ local diagnostics = {
 	always_visible = false,
 }
 
---[[ local diff = { ]]
---[[ 	"diff", ]]
---[[ 	colored = true, ]]
---[[ 	symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols ]]
---[[ 	cond = hide_in_width, ]]
---[[ } ]]
+local diff = {
+	"diff",
+	colored = true,
+	symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols
+	cond = hide_in_width,
+}
 
---[[ local filetype = { ]]
---[[ 	"filetype", ]]
---[[ 	icons_enabled = true, ]]
---[[ } ]]
+local filetype = {
+	"filetype",
+	icons_enabled = true,
+}
 
---[[ local hide_in_width_100 = function() ]]
---[[ 	return vim.o.columns > 100 ]]
---[[ end ]]
+local hide_in_width_50 = function()
+	return vim.o.columns > 50
+end
 
 local current_signature = {
 	function()
@@ -54,7 +57,7 @@ local current_signature = {
 
 		return ""
 	end,
-	--[[ cond = hide_in_width_100, ]]
+	cond = hide_in_width_50,
 	padding = 0,
 }
 

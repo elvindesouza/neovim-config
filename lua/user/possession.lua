@@ -22,9 +22,9 @@ possession.setup({
 	},
 })
 
---[[ local tele_status_ok, telescope = pcall(require, "telescope")
+local tele_status_ok, telescope = pcall(require, "telescope")
 if not tele_status_ok then
 	return
-end ]]
+end
 
---telescope.load_extension("possession")
+telescope.load_extension("possession")

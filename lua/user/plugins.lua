@@ -1,6 +1,5 @@
 local fn = vim.fn
 
-
 -- Automatically install paccker
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -226,7 +225,13 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		requires = {
 			{ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
-			{ "nvim-treesitter/nvim-treesitter-context", after = "nvim-treesitter" },
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				after = "nvim-treesitter",
+				config = function()
+					require("user.ts-context")
+				end,
+			},
 			{ --https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 				"nvim-treesitter/nvim-treesitter-textobjects",
 				after = "nvim-treesitter",
@@ -379,7 +384,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/auto-save.nvim",
-        --[[ disable=true, ]]
+		--[[ disable=true, ]]
 		config = function()
 			require("user.auto-save")
 		end,
@@ -390,11 +395,7 @@ return packer.startup(function(use)
 		"Pocco81/true-zen.nvim",
 		event = "BufRead",
 		config = function()
-			require("true-zen").setup({
-				integrations = {
-					tmux = true, -- hide tmux status bar in (minimalist, ataraxis)
-				},
-			})
+			require("user.true-zen")
 		end,
 	})
 
@@ -414,7 +415,7 @@ return packer.startup(function(use)
 		"rcarriga/nvim-notify",
 		after = "alpha-nvim",
 		config = function()
-			vim.notify = require("notify")
+            require("user.notify")
 		end,
 	})
 
@@ -424,11 +425,12 @@ return packer.startup(function(use)
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
 	-- https://github.com/nvim-treesitter/playground
+	-- https://github.com/windwp/nvim-ts-autotag
 	--
 	use({
 		"nvim-treesitter/playground",
 		after = "nvim-treesitter",
-        disable=true,
+		disable = true,
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				playground = {
