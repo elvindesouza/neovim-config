@@ -22,9 +22,9 @@ nvim_tree.setup({
 		enable = true,
 		update_cwd = true,
 	},
-	hijack_directories = {
-		enable = false,
-	},
+	--[[ hijack_directories = { ]]
+	--[[ 	enable = false, ]]
+	--[[ }, ]]
 	ignore_ft_on_setup = {
 		"startify",
 		"dashboard",

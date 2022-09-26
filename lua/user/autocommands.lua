@@ -3,8 +3,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir" },
 	callback = function()
 		vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR> 
-      set nobuflisted 
+      nnoremap <silent> <buffer> q :close<CR>
+      set nobuflisted
     ]])
 	end,
 })
@@ -45,24 +45,46 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	callback = function()
+		vim.cmd("tabdo wincmd =")
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+	callback = function()
+		vim.cmd("quit")
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*.java" },
+	callback = function()
+		vim.lsp.codelens.refresh()
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+	callback = function()
+		vim.cmd("hi link illuminatedWord LspReferenceText")
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.cmd("checktime")
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.ts" },
+  callback = function()
+    vim.lsp.buf.format { async = true }
+  end,
+})
+
 vim.cmd([[
- augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-    autocmd FileType gitcommit setlocal spell
-  augroup end
-
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-  augroup end
-
-  augroup _auto_resize
-    autocmd!
-    autocmd VimResized * tabdo wincmd = 
-  augroup end
-
  " autoformat
  augroup _lsp
    " autocmd!

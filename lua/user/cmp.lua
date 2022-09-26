@@ -1,3 +1,4 @@
+--[[TODO make alt(meta) bindings for snippet jumps]]
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
 	return
@@ -8,6 +9,8 @@ if not snip_status_ok then
 	return
 end
 
+local compare = require "cmp.config.compare"
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -15,33 +18,9 @@ local check_backspace = function()
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
-local kind_icons = {
-	Text = "",
-	Method = "",
-	Function = "",
-	Constructor = "",
-	Field = "",
-	Variable = "",
-	Class = "",
-	Interface = "",
-	Module = "",
-	Property = "",
-	Unit = "",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-}
+local icons = require("user.icons")
+
+local kind_icons = icons.kind
 
 cmp.setup({
 	snippet = {
@@ -134,6 +113,25 @@ cmp.setup({
 		},
 		{
 			name = "path",
+		},
+	},
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			-- require("copilot_cmp.comparators").prioritize,
+			-- require("copilot_cmp.comparators").score,
+			compare.offset,
+			compare.exact,
+			-- compare.scopes,
+			compare.score,
+			compare.recently_used,
+			compare.locality,
+			-- compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+			-- require("copilot_cmp.comparators").prioritize,
+			-- require("copilot_cmp.comparators").score,
 		},
 	},
 	confirm_opts = {
