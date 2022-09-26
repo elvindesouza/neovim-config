@@ -1,5 +1,6 @@
 local fn = vim.fn
 
+
 -- Automatically install paccker
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -378,7 +379,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/auto-save.nvim",
-        disable=true,
+        --[[ disable=true, ]]
 		config = function()
 			require("user.auto-save")
 		end,
