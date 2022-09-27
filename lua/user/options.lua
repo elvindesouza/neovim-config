@@ -7,9 +7,7 @@ opt.cmdheight = 1 -- more space in the neovim command line for displaying messag
 --opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- the encoding written to a file
-opt.hlsearch = true -- highlight all matches on previous search pattern
 opt.ignorecase = true -- ignore case in search patterns
-opt.mouse = "a" -- allow the mouse to be used in neovim
 opt.pumheight = 10 -- pop up menu height
 opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 opt.showtabline = 0 -- always show tabs
@@ -19,7 +17,7 @@ opt.splitbelow = true -- force all horizontal splits to go below current window
 opt.splitright = true -- force all vertical splits to go to the right of current window
 opt.swapfile = false -- creates a swapfile
 opt.termguicolors = true -- set term gui colors (most terminals support this)
-opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
+opt.timeoutlen = 700 -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.undofile = true -- enable persistent undo
 opt.updatetime = 100 -- faster completion (4000ms default)
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -28,7 +26,6 @@ opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 opt.tabstop = 4 -- insert 2 spaces for a tab
 opt.cursorline = true -- highlight the current line
 opt.number = false -- set numbered lines
-opt.laststatus = 3
 opt.showcmd = false
 opt.ruler = false
 opt.numberwidth = 2 -- set number column width to 2 {default 4}
@@ -42,21 +39,14 @@ opt.fillchars.eob = " "
 opt.shortmess:append("c")
 opt.whichwrap:append("<,>,[,],h,l")
 opt.iskeyword:append("-")
-opt.compatible = false
-opt.incsearch = true
-opt.autoindent = true
 opt.cindent = true
 opt.so = 7
 opt.virtualedit:append("onemore")
 opt.showmatch = true
 opt.fileformat = "unix"
-cmd("syntax enable")
-cmd("syntax on")
-cmd("filetype plugin on")
-cmd("filetype indent on")
-cmd("set backspace=eol,start,indent")
 cmd("set ffs=unix,dos,mac")
 opt.inccommand = "split"
+opt.mouse='nvi'
 
 if vim.version().minor > 7 then
 	opt.cmdheight = 0
