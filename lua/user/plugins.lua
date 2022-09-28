@@ -415,7 +415,7 @@ return packer.startup(function(use)
 		"rcarriga/nvim-notify",
 		after = "alpha-nvim",
 		config = function()
-            require("user.notify")
+			require("user.notify")
 		end,
 	})
 
@@ -454,6 +454,8 @@ return packer.startup(function(use)
 			})
 		end,
 	})
+
+	use("dstein64/vim-startuptime")
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
