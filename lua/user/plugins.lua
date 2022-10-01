@@ -425,7 +425,6 @@ return packer.startup(function(use)
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
 	-- https://github.com/nvim-treesitter/playground
-	-- https://github.com/windwp/nvim-ts-autotag
 	--
 	use({
 		"nvim-treesitter/playground",
@@ -456,6 +455,14 @@ return packer.startup(function(use)
 	})
 
 	use("dstein64/vim-startuptime")
+
+	-- https://github.com/windwp/nvim-ts-autotag
+	use({
+		"windwp/nvim-ts-autotag",
+		--[[ config = function() ]]
+		--[[ 	require("user.nvim-ts-autotag") ]]
+		--[[ end, ]]
+	})
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

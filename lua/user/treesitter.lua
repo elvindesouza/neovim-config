@@ -86,5 +86,8 @@ configs.setup({
 				["<leader>,"] = "@parameter.inner",
 			},
 		},
+		autotag = {
+			enable = true,
+		},
 	},
 })
