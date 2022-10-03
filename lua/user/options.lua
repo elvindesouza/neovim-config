@@ -3,7 +3,6 @@ local cmd = vim.cmd
 
 opt.backup = false -- creates a backup file
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
 --opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- the encoding written to a file
@@ -47,7 +46,5 @@ opt.fileformat = "unix"
 cmd("set ffs=unix,dos,mac")
 opt.inccommand = "split"
 opt.mouse='nvi'
+opt.cmdheight = 0
 
-if vim.version().minor > 7 then
-	opt.cmdheight = 0
-end
