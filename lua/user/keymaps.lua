@@ -168,7 +168,7 @@ keymap("n", "<C-p>", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<F1>", ":", opts)
 --keymap("n", ";", ":", opts)
 
-keymap("n", "<M-z>", "<CMD>set wrap<CR>", opts)
+keymap("n", "<M-z>", "<CMD>set wrap!<CR>", opts)
 
 keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
 
@@ -214,4 +214,3 @@ keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",opts)
 keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",opts)
 keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",opts)
 keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",opts)
-
