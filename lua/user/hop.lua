@@ -4,4 +4,4 @@ if not status_ok then
 end
 
 -- you can configure Hop the way you like here; see :h hop-config
-hop.setup({ keys = "etovxqpdygfblzhckisuran" })
+hop.setup({ keys = "etovxqpdygfblzhckisuran", current_line_only = false })

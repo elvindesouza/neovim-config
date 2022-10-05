@@ -370,15 +370,11 @@ return packer.startup(function(use)
 	--https://github.com/folke/trouble.nvim
 	use({
 		"folke/trouble.nvim",
-		disable = true,
+		--disable = true,
 		requires = "kyazdani42/nvim-web-devicons",
 		event = "BufWinEnter",
 		config = function()
-			require("trouble").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
+			require("user.trouble")
 		end,
 	})
 
@@ -424,8 +420,8 @@ return packer.startup(function(use)
 	-- https://github.com/stevearc/dressing.nvim
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
+
 	-- https://github.com/nvim-treesitter/playground
-	--
 	use({
 		"nvim-treesitter/playground",
 		after = "nvim-treesitter",
@@ -459,9 +455,6 @@ return packer.startup(function(use)
 	-- https://github.com/windwp/nvim-ts-autotag
 	use({
 		"windwp/nvim-ts-autotag",
-		--[[ config = function() ]]
-		--[[ 	require("user.nvim-ts-autotag") ]]
-		--[[ end, ]]
 	})
 
 	-- Put this at the end after all plugins

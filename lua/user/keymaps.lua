@@ -54,10 +54,10 @@ keymap("v", ">", ">gv", opts)
 keymap("n", ">", ">>", opts)
 keymap("n", "<", "<<", opts)
 keymap("n", "<Tab>", ">>_", opts)
-keymap("n", "<S-Tab>", "<<_")
-keymap("i", "<S-Tab>", "<C-D>")
-keymap("v", "<Tab>", ">gv")
-keymap("v", "<S-Tab>", "<gv")
+keymap("n", "<S-Tab>", "<<_",opts)
+keymap("i", "<S-Tab>", "<C-D>",opts)
+keymap("v", "<Tab>", ">gv",opts)
+keymap("v", "<S-Tab>", "<gv",opts)
 
 -- Plugins --
 
@@ -76,14 +76,16 @@ keymap("n", "<C-S-o>", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
+-- TODO fix bindings
 --[[ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts) ]]
 --[[ keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").locked("comment.linewise")(vim.fn.visualmode())<CR>') ]]
-keymap("n", "", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
-keymap("i", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
+--[[ keymap("n", "", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts) ]]
+--[[ keymap("x", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>") ]]
+--[[ keymap("i", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>") ]]
 keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("i", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "<C-/>", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
+keymap("v", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
@@ -96,18 +98,29 @@ keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
+keymap("n", "<F9>", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
+keymap("n", "<F5>", "<cmd>lua require'dap'.continue()<cr>", opts)
+keymap("n", "<F11>", "<cmd>lua require'dap'.step_into()<cr>", opts)
+keymap("n", "<F10>", "<cmd>lua require'dap'.step_over()<cr>", opts)
+keymap("n", "<F23>", "<cmd>lua require'dap'.step_out()<cr>", opts)
+keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
+keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
+keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
+keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
+
+
 keymap("n", "<C-o>", "<cmd>SymbolsOutline<cr>", opts)
 
 --open up new line in insert mode
-keymap("i", "oo", "<ESC>o", opts)
+--[[ keymap("i", "oo", "<ESC>o", opts) ]]
 --enter for newline
 keymap("n", "<CR>", "o<Esc>", opts)
 
 --delete previous word
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "<C-BS>", "db", opts)
-keymap("i", "", "", opts)
-keymap("i", "", "", opts)
+--[[ keymap("i", "", "", opts) ]]
+--[[ keymap("i", "", "", opts) ]]
 
 --delete next word
 keymap("i", "<C-Del>", "<C-o>dw", opts)
@@ -115,9 +128,6 @@ keymap("n", "<C-Del>", "dw", opts)
 
 --R for redo
 keymap("n", "R", "<C-R>", opts)
-
---Y for yank to EOL
-keymap("n", "Y", "y$", opts)
 
 --seek to B/EOL
 keymap("n", "0", "^", opts)
@@ -153,7 +163,7 @@ keymap("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
 keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
 ------ Telescope
-keymap("n", "<C-f>", ":Telescope oldfiles<CR>", opts)
+keymap("n", "<C-p>", ":Telescope oldfiles<CR>", opts)
 
 keymap("n", "<F1>", ":", opts)
 --keymap("n", ";", ":", opts)
@@ -196,3 +206,12 @@ keymap(
 keymap("n", "<leader>w", "<cmd>HopWordMW<cr>", opts)
 keymap("n", "<leader>j", "<cmd>HopLineStartMW<cr>", opts)
 keymap("n", "<leader>/", "<cmd>HopAnywhereMW<cr>", opts)
+
+-- Lua
+keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",opts)
+keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",opts)
+keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",opts)
+keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",opts)
+keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",opts)
+keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",opts)
+
