@@ -450,7 +450,7 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use("dstein64/vim-startuptime")
+	--use("dstein64/vim-startuptime")
 
 	-- https://github.com/windwp/nvim-ts-autotag
 	use({

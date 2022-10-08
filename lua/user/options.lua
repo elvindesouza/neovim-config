@@ -32,8 +32,8 @@ opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift 
 opt.wrap = false -- display lines as one long line
 opt.scrolloff = 8 -- is one of my fav
 opt.sidescrolloff = 8
-opt.guifont="Iosevka_Nerd_Font_Mono:h28"
-opt.title=true
+opt.guifont = "Iosevka_Nerd_Font_Mono:h28"
+opt.title = true
 opt.fillchars.eob = " "
 opt.shortmess:append("c")
 opt.whichwrap:append("<,>,[,],h,l")
@@ -45,6 +45,6 @@ opt.showmatch = true
 opt.fileformat = "unix"
 cmd("set ffs=unix,dos,mac")
 opt.inccommand = "split"
-opt.mouse='nvi'
+opt.mouse = "nvi"
 opt.cmdheight = 0
-
+cmd("set mousescroll=ver:1,hor:5")
