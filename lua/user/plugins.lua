@@ -237,7 +237,7 @@ return packer.startup(function(use)
 				after = "nvim-treesitter",
 			},
 		},
-		event = "BufWinEnter",
+		--event = "BufWinEnter",
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
@@ -370,7 +370,6 @@ return packer.startup(function(use)
 	--https://github.com/folke/trouble.nvim
 	use({
 		"folke/trouble.nvim",
-		--disable = true,
 		requires = "kyazdani42/nvim-web-devicons",
 		event = "BufWinEnter",
 		config = function()
