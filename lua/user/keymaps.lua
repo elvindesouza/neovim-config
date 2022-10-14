@@ -54,10 +54,10 @@ keymap("v", ">", ">gv", opts)
 keymap("n", ">", ">>", opts)
 keymap("n", "<", "<<", opts)
 keymap("n", "<Tab>", ">>_", opts)
-keymap("n", "<S-Tab>", "<<_",opts)
-keymap("i", "<S-Tab>", "<C-D>",opts)
-keymap("v", "<Tab>", ">gv",opts)
-keymap("v", "<S-Tab>", "<gv",opts)
+keymap("n", "<S-Tab>", "<<_", opts)
+keymap("i", "<S-Tab>", "<C-D>", opts)
+keymap("v", "<Tab>", ">gv", opts)
+keymap("v", "<S-Tab>", "<gv", opts)
 
 -- Plugins --
 
@@ -107,7 +107,6 @@ keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
-
 
 keymap("n", "<C-o>", "<cmd>SymbolsOutline<cr>", opts)
 
@@ -208,9 +207,11 @@ keymap("n", "<leader>j", "<cmd>HopLineStartMW<cr>", opts)
 keymap("n", "<leader>/", "<cmd>HopAnywhereMW<cr>", opts)
 
 -- Lua
-keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",opts)
-keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",opts)
-keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",opts)
-keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",opts)
-keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",opts)
-keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",opts)
+keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
+
+--keymap("n", "<C-/>", "<cmd>echo 'worked'<cr>", opts)
