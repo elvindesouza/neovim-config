@@ -213,5 +213,3 @@ keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
 keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
 keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
 keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
-
---keymap("n", "<C-/>", "<cmd>echo 'worked'<cr>", opts)
