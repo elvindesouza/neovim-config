@@ -379,7 +379,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/auto-save.nvim",
-		--[[ disable=true, ]]
+		disable=true,
 		config = function()
 			require("user.auto-save")
 		end,
