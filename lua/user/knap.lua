@@ -1,10 +1,3 @@
-local status_ok, knap = pcall(require, "knap")
-if not status_ok then
-	return
-end
-
-knap.setup({})
-
 local keymap = vim.keymap.set
 
 keymap("i", "<F7>", function()
