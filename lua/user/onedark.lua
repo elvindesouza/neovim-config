@@ -51,9 +51,9 @@ onedark.setup({
 		--[[ bg1 = "#111111", ]]
 		--[[ bg2 = "#222222", ]]
 		--[[ bg3 = "#232323", ]]
-		fg = "#ffffff",
+		fg = "#93a1a1",
 		--[[ black = "#000000", ]]
-		blue = "#82AAFF",
+		blue = "#82AAFF", -- #01a0e4
 	}, -- Override default colors
 	highlights = {
 		TSOperator = { fg = "$purple" },
