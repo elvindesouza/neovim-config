@@ -1,6 +1,6 @@
 -- Use 'q' to quit from common plugins
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir" },
+	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "toggleterm"},
 	callback = function()
 		vim.cmd([[
       nnoremap <silent> <buffer> q :close<CR>
@@ -78,10 +78,10 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.ts" },
-  callback = function()
-    vim.lsp.buf.format { async = true }
-  end,
+	pattern = { "*.ts" },
+	callback = function()
+		vim.lsp.buf.format({ async = true })
+	end,
 })
 
 vim.cmd([[
@@ -92,4 +92,3 @@ vim.cmd([[
  augroup end
 
 ]])
-

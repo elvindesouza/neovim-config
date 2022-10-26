@@ -9,7 +9,7 @@ if not snip_status_ok then
 	return
 end
 
-local compare = require "cmp.config.compare"
+local compare = require("cmp.config.compare")
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -41,9 +41,9 @@ cmp.setup({
 		}),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
-		["<CR>"] = cmp.mapping.confirm({
-			select = true,
-		}),
+		--[[ ["<CR>"] = cmp.mapping.confirm({ ]]
+		--[[ 	select = true, ]]
+		--[[ }), ]]
 		["<Tab>"] = cmp.mapping.confirm({
 			select = true,
 		}),
@@ -57,21 +57,6 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 
-		--[[ ["<Tab>"] = cmp.mapping(function(fallback) ]]
-		--[[     if cmp.visible() then ]]
-		--[[         cmp.mapping.confirm({ ]]
-		--[[             select = true ]]
-		--[[         }) ]]
-		--[[     elseif luasnip.expandable() then ]]
-		--[[         luasnip.expand() ]]
-		--[[     elseif luasnip.expand_or_jumpable() then ]]
-		--[[         luasnip.expand_or_jump() ]]
-		--[[     elseif check_backspace() then ]]
-		--[[         fallback() ]]
-		--[[     else ]]
-		--[[         fallback() ]]
-		--[[     end ]]
-		--[[ end, {"i", "s"}), ]]
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()

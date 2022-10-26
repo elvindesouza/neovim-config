@@ -1,9 +1,10 @@
 return {
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "off",
-      },
-    },
-  },
+	settings = {
+		python = {
+			analysis = {
+				typeCheckingMode = "basic", -- off|basic|strict
+				autoImportCompletions = true,
+			},
+		},
+	},
 }

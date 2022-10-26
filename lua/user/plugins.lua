@@ -50,6 +50,9 @@ return packer.startup(function(use)
 	-- https://github.com/rockerBOO/awesome-neovim#project
 	-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
 	-- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
+	-- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim
+	-- https://www.lunarvim.org/docs/plugins/core-plugins-list
+
 
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
@@ -269,15 +272,16 @@ return packer.startup(function(use)
 	-- https://github.com/mfussenegger/nvim-dap
 	use({
 		"mfussenegger/nvim-dap",
+		disable = true,
 		cmd = { "BreakpointToggle", "Debug", "DapREPL" },
 		config = function()
 			require("user.dap")
 		end,
 	})
 
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, after = "nvim-dap" })
+	use({ "rcarriga/nvim-dap-ui", disable = true, requires = { "mfussenegger/nvim-dap" }, after = "nvim-dap" })
 
-	use({ "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
+	use({ "ravenxrz/DAPInstall.nvim", disable = true, after = "nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
 
 	-- Symbol Tree
 	-- https://github.com/simrat39/symbols-outline.nvim
@@ -312,18 +316,9 @@ return packer.startup(function(use)
 	-- https://github.com/phaazon/hop.nvim#usage
 	use({
 		"phaazon/hop.nvim",
-		--branch = "v2", -- optional but strongly recommended
-		--[[ cmd = { ]]
-		--[[ 	"HopWord", ]]
-		--[[ 	"HopLine", ]]
-		--[[ 	"HopChar1", ]]
-		--[[ 	"HopChar2", ]]
-		--[[ 	"HopPattern", ]]
-		--[[ }, ]]
 		event = "BufRead",
 		as = "hop",
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
 			require("user.hop")
 		end,
 	})
@@ -379,7 +374,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/auto-save.nvim",
-		disable=true,
+		disable = true,
 		config = function()
 			require("user.auto-save")
 		end,
@@ -455,6 +450,16 @@ return packer.startup(function(use)
 	use({
 		"windwp/nvim-ts-autotag",
 	})
+
+	-- lua with packer.nvim
+	use({
+		"max397574/better-escape.nvim",
+		config = function()
+			require("user.better_escape")
+		end,
+	})
+
+	use({ "folke/neodev.nvim" })
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
