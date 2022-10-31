@@ -203,8 +203,8 @@ keymap(
 )
 
 keymap("n", "<leader>w", "<cmd>HopWordMW<cr>", opts)
-keymap("n", "<leader>j", "<cmd>HopLineStartMW<cr>", opts)
-keymap("n", "<leader>/", "<cmd>HopAnywhereMW<cr>", opts)
+keymap("n", "<leader>*", "<cmd>HopAnywhereMW<cr>", opts)
+keymap("n", "<leader>/", "<cmd>HopPattern<cr>", opts)
 
 -- Lua
 keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
@@ -213,3 +213,16 @@ keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
 keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
 keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
 keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
+
+-- Alt keys in insert mode to move around
+keymap("i", "<M-h>", "<C-o>h", opts)
+keymap("i", "<M-l>", "<C-o>l", opts)
+keymap("i", "<M-j>", "<C-o>j", opts)
+keymap("i", "<M-k>", "<C-o>k", opts)
+
+--
+keymap("n", "U", "<cmd><cr>", opts)
+
+keymap("n", "|", "<cmd>vsplit<cr>", opts)
+
+

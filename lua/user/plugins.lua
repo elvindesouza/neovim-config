@@ -110,6 +110,7 @@ return packer.startup(function(use)
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		--after = { "bufferline.nvim", "gitsigns.nvim", "onedark.nvim" },
+		event = "BufWinEnter",
 		config = function()
 			require("user.lualine")
 		end,
@@ -240,7 +241,7 @@ return packer.startup(function(use)
 				after = "nvim-treesitter",
 			},
 		},
-		--event = "BufWinEnter",
+--		event = "BufWinEnter",
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,

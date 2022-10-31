@@ -49,3 +49,6 @@ opt.inccommand = "split"
 opt.mouse = "nvi"
 opt.cmdheight = 0
 cmd("set mousescroll=ver:1,hor:5")
+
+-- Set the winbar to the statusline.
+--[[ opt.wbr = opt.stl ]]
