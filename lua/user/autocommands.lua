@@ -84,11 +84,10 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	end,
 })
 
-vim.cmd([[
- " autoformat
- augroup _lsp
-   " autocmd!
-   " autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
- augroup end
+--[[ vim.cmd([[ " autoformat ]]
+--[[  augroup _lsp ]]
+--[[    autocmd! ]]
+--[[    autocmd BufWritePre * lua vim.lsp.buf.formatting_sync() ]]
+--[[  augroup end \]\]) ]]
 
-]])
+--[[ vim.cmd([[let &showtabline = len(bufloaded) > a:threshold ? 2 : 0\]\]) ]]

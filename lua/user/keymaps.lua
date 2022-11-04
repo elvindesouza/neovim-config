@@ -225,4 +225,5 @@ keymap("n", "U", "<cmd><cr>", opts)
 
 keymap("n", "|", "<cmd>vsplit<cr>", opts)
 
+keymap("n", "<M-C-N>", "<cmd>RunFile<cr>", opts)
 
