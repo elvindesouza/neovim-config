@@ -10,6 +10,9 @@ configs.setup({
 		enable = true, -- false will disable the whole extension
 		disable = {}, -- list of language that will be disabled
 	},
+	autotag = {
+		enable = true,
+	},
 	autopairs = {
 		enable = true,
 	},
@@ -85,9 +88,6 @@ configs.setup({
 			swap_previous = {
 				["<leader>,"] = "@parameter.inner",
 			},
-		},
-		autotag = {
-			enable = true,
 		},
 	},
 })

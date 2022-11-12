@@ -22,7 +22,7 @@ local servers = {
 	--[[ "groovyls", ]]
 	"asm_lsp",
 	"marksman",
-	--[[ "phpactor", ]]
+    "intelephense",
 	"sqls",
 }
 

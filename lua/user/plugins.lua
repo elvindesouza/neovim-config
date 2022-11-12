@@ -461,6 +461,7 @@ return packer.startup(function(use)
 	})
 
 	use({ "folke/neodev.nvim" })
+	use({ "norcalli/nvim-colorizer.lua" })
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

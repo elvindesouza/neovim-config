@@ -10,7 +10,7 @@ end
 
 local icons = require("user.icons")
 local tree_cb = nvim_tree_config.nvim_tree_callback
-local utils = require("nvim-tree.utils")
+--[[ local utils = require("nvim-tree.utils") ]]
 
 --[[ utils.notify.warn = notify_level(vim.log.levels.WARN) ]]
 --[[ utils.notify.error = notify_level(vim.log.levels.ERROR) ]]
@@ -22,6 +22,8 @@ nvim_tree.setup({
 		enable = true,
 		update_cwd = true,
 	},
+	hijack_unnamed_buffer_when_opening = true,
+    hijack_cursor=true,
 	--[[ hijack_directories = { ]]
 	--[[ 	enable = false, ]]
 	--[[ }, ]]
@@ -34,7 +36,7 @@ nvim_tree.setup({
 		custom = { ".git" },
 		exclude = { ".gitignore" },
 	},
-	update_cwd = true,
+	sync_root_with_cwd = true,
 	renderer = {
 		root_folder_modifier = ":t",
 		icons = {
