@@ -53,7 +53,6 @@ return packer.startup(function(use)
 	-- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim
 	-- https://www.lunarvim.org/docs/plugins/core-plugins-list
 
-
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
 
@@ -127,6 +126,7 @@ return packer.startup(function(use)
 
 	use({
 		"ahmedkhalf/project.nvim",
+		event = "BufRead",
 		config = function()
 			require("user.project")
 		end,
@@ -241,7 +241,7 @@ return packer.startup(function(use)
 				after = "nvim-treesitter",
 			},
 		},
---		event = "BufWinEnter",
+		event = "BufRead",
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
@@ -273,16 +273,21 @@ return packer.startup(function(use)
 	-- https://github.com/mfussenegger/nvim-dap
 	use({
 		"mfussenegger/nvim-dap",
-		disable = true,
+		--[[ disable = true, ]]
 		cmd = { "BreakpointToggle", "Debug", "DapREPL" },
 		config = function()
 			require("user.dap")
 		end,
 	})
 
-	use({ "rcarriga/nvim-dap-ui", disable = true, requires = { "mfussenegger/nvim-dap" }, after = "nvim-dap" })
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = { "mfussenegger/nvim-dap" },
+		after = "nvim-dap",
+	})
 
-	use({ "ravenxrz/DAPInstall.nvim", disable = true, after = "nvim-dap" }) -- Automatically set up your configuration after cloning packer.nvim
+	-- Automatically set up your configuration after cloning packer.nvim
+	use({ "ravenxrz/DAPInstall.nvim" , after = "nvim-dap" })
 
 	-- Symbol Tree
 	-- https://github.com/simrat39/symbols-outline.nvim
@@ -334,6 +339,7 @@ return packer.startup(function(use)
 
 	use({
 		"jedrzejboczar/possession.nvim",
+		event = "BufRead",
 		requires = { "plenary.nvim" },
 		config = function()
 			require("user.possession")
@@ -398,17 +404,38 @@ return packer.startup(function(use)
 			require("user.navic")
 		end,
 	})
+
 	--https://github.com/TimUntersberger/neogit
 	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", disable = true })
 
 	-- https://github.com/rcarriga/nvim-notify#Installation
 	use({
 		"rcarriga/nvim-notify",
+		disable = true,
 		after = "alpha-nvim",
 		config = function()
 			require("user.notify")
 		end,
 	})
+
+	-- https://github.com/windwp/nvim-ts-autotag
+	use({
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
+	})
+
+	-- lua with packer.nvim
+	use({
+		"max397574/better-escape.nvim",
+		event = "InsertEnter",
+		config = function()
+			require("user.better_escape")
+		end,
+	})
+
+	use({ "folke/neodev.nvim", ft = { "lua" } })
+
+	use({ "norcalli/nvim-colorizer.lua", event = "InsertEnter" })
 
 	-- https://github.com/nvim-neorg/neorg
 	-- https://github.com/ray-x/navigator.lua
@@ -416,52 +443,7 @@ return packer.startup(function(use)
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
 
-	-- https://github.com/nvim-treesitter/playground
-	--[[ use({ ]]
-	--[[ 	"nvim-treesitter/playground", ]]
-	--[[ 	after = "nvim-treesitter", ]]
-	--[[ 	disable = true, ]]
-	--[[ 	config = function() ]]
-	--[[ 		require("nvim-treesitter.configs").setup({ ]]
-	--[[ 			playground = { ]]
-	--[[ 				enable = true, ]]
-	--[[ 				disable = {}, ]]
-	--[[ 				updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code ]]
-	--[[ 				persist_queries = false, -- Whether the query persists across vim sessions ]]
-	--[[ 				keybindings = { ]]
-	--[[ 					toggle_query_editor = "o", ]]
-	--[[ 					toggle_hl_groups = "i", ]]
-	--[[ 					toggle_injected_languages = "t", ]]
-	--[[ 					toggle_anonymous_nodes = "a", ]]
-	--[[ 					toggle_language_display = "I", ]]
-	--[[ 					focus_language = "f", ]]
-	--[[ 					unfocus_language = "F", ]]
-	--[[ 					update = "R", ]]
-	--[[ 					goto_node = "<cr>", ]]
-	--[[ 					show_help = "?", ]]
-	--[[ 				}, ]]
-	--[[ 			}, ]]
-	--[[ 		}) ]]
-	--[[ 	end, ]]
-	--[[ }) ]]
-
 	--use("dstein64/vim-startuptime")
-
-	-- https://github.com/windwp/nvim-ts-autotag
-	use({
-		"windwp/nvim-ts-autotag",
-	})
-
-	-- lua with packer.nvim
-	use({
-		"max397574/better-escape.nvim",
-		config = function()
-			require("user.better_escape")
-		end,
-	})
-
-	use({ "folke/neodev.nvim" })
-	use({ "norcalli/nvim-colorizer.lua" })
 
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
