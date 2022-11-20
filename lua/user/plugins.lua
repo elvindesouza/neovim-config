@@ -73,7 +73,7 @@ return packer.startup(function(use)
 	use({
 		"numToStr/Comment.nvim",
 		after = { "nvim-ts-context-commentstring", after = "nvim-treesitter" },
-		event = "BufWinEnter",
+		event = "BufRead",
 		config = function()
 			require("user.comment")
 		end,
@@ -100,7 +100,7 @@ return packer.startup(function(use)
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		after = "onedark.nvim",
-		event = "BufWinEnter",
+		event = "BufRead",
 		config = function()
 			require("user.bufferline")
 		end,
@@ -113,7 +113,7 @@ return packer.startup(function(use)
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		after = { "onedark.nvim" },
-		event = "BufWinEnter",
+		event = "BufRead",
 		config = function()
 			require("user.lualine")
 		end,
@@ -149,6 +149,7 @@ return packer.startup(function(use)
 	use({
 		"goolord/alpha-nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
+		after = "onedark.nvim",
 		config = function()
 			require("user.alpha")
 		end,
@@ -288,6 +289,7 @@ return packer.startup(function(use)
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = "nvim-lua/plenary.nvim",
+		event = "BufRead",
 		after = { "plenary.nvim" },
 		config = function()
 			require("user.gitsigns")
@@ -320,9 +322,10 @@ return packer.startup(function(use)
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
-		--[[ event = "BufWinEnter", ]]
-        cmd="SymbolsOutline",
+		event = "BufWinEnter",
+		cmd = "SymbolsOutline",
 		after = "nvim-lspconfig",
+		disable = true,
 		config = function()
 			require("user.symbols-outline")
 		end,
@@ -402,7 +405,7 @@ return packer.startup(function(use)
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
-		event = "BufWinEnter",
+		event = "BufRead",
 		config = function()
 			require("user.trouble")
 		end,
@@ -464,11 +467,13 @@ return packer.startup(function(use)
 
 	use({ "folke/neodev.nvim", ft = { "lua" } })
 
-	use({ "norcalli/nvim-colorizer.lua", 
+	use({
+		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
-        event = "BufRead" })
+		event = "BufRead",
+	})
 
 	-- https://github.com/nvim-neorg/neorg
 	-- https://github.com/ray-x/navigator.lua
