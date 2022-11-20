@@ -44,6 +44,7 @@ keymap("v", "p", '"_dP', opts)
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
+keymap("c", "jk", "<C-c>", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -61,19 +62,23 @@ keymap("v", "<S-Tab>", "<gv", opts)
 
 -- Plugins --
 
--- NvimTree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
 -- Telescope
+keymap("n", "<C-p>", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+keymap("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+keymap("n", "<leader>fm", ":Telescope marks<CR>", opts)
+keymap("n", "<leader>f/", ":Telescope current_buffer_fuzzy_find<CR>", opts)
 keymap("n", "<leader>O", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<C-S-o>", ":Telescope lsp_document_symbols<CR>", opts)
 
 -- Git
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+keymap("n", "<C-\\>", "<cmd>ToggleTerm<CR>", opts)
+keymap("t", "<C-\\>", "<cmd>ToggleTerm<CR>", opts)
+
 
 -- Comment
 -- TODO fix bindings
@@ -161,17 +166,14 @@ keymap("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
 -- keymap("n", "<leader>0", ":NvimTreeFocus<CR>", opts)
 keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
------- Telescope
-keymap("n", "<C-p>", ":Telescope oldfiles<CR>", opts)
 
-keymap("n", "<F1>", ":", opts)
---keymap("n", ";", ":", opts)
+keymap("n", "<F1>", ":")
+keymap("n", ";", ":")
 
 keymap("n", "<M-z>", "<CMD>set wrap!<CR>", opts)
 
-keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
 
-keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR>", opts)
+keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR><CMD>lua vim.opt.cmdheight=0<CR>", opts)
 
 keymap("n", "<a-n>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
 keymap("n", "<a-p>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
@@ -203,10 +205,12 @@ keymap(
 )
 
 keymap("n", "<leader>w", "<cmd>HopWordMW<cr>", opts)
+keymap("n", "<leader>j", "<cmd>HopLineStartMW<cr>", opts)
 keymap("n", "<leader>*", "<cmd>HopAnywhereMW<cr>", opts)
 keymap("n", "<leader>/", "<cmd>HopPattern<cr>", opts)
 
--- Lua
+-- Trouble
+keymap("n", "M", "<CMD>TroubleToggle<CR>", opts)
 keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
 keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
 keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
@@ -221,9 +225,12 @@ keymap("i", "<M-j>", "<C-o>j", opts)
 keymap("i", "<M-k>", "<C-o>k", opts)
 
 --
-keymap("n", "U", "<cmd><cr>", opts)
+--[[ keymap("n", "U", "<cmd><cr>", opts) ]]
 
 keymap("n", "|", "<cmd>vsplit<cr>", opts)
+keymap("n", "_", "<cmd>split<cr>", opts)
 
 keymap("n", "<M-C-N>", "<cmd>RunFile<cr>", opts)
 
+-- toggle line numbers
+keymap("n", "<leader>n", "<cmd>set nu!<cr>", opts)

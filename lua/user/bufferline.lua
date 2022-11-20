@@ -3,6 +3,14 @@ if not status_ok then
 	return
 end
 
+local bg = "#2e3440"
+local bg2 = "#3b4252"
+local bg3 = "#282c34"
+local fg = "#CACed6"
+local accent = "#81a1c1"
+local accent2 = "#BF616A" -- Not saved
+local accent3 = "#EBCB8B" -- Not saved
+
 bufferline.setup({
 	options = {
 		--mode = "tabs",

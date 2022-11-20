@@ -3,6 +3,12 @@ if not status_ok then
 	return
 end
 
+vim.cmd([[
+    syntax off
+    filetype off
+    filetype plugin indent off
+]])
+
 local disabled_built_ins = {
 	"netrw",
 	"netrwPlugin",

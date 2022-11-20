@@ -16,7 +16,7 @@ opt.splitbelow = true -- force all horizontal splits to go below current window
 opt.splitright = true -- force all vertical splits to go to the right of current window
 opt.swapfile = false -- creates a swapfile
 opt.termguicolors = true -- set term gui colors (most terminals support this)
-opt.timeoutlen = 700 -- time to wait for a mapped sequence to complete (in milliseconds)
+opt.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.undofile = true -- enable persistent undo
 opt.updatetime = 100 -- faster completion (4000ms default)
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -50,5 +50,9 @@ opt.mouse = "nvi"
 opt.cmdheight = 0
 cmd("set mousescroll=ver:1,hor:5")
 
+opt.shell="/bin/bash"
+opt.hidden=true
+opt.lazyredraw=true
 -- Set the winbar to the statusline.
 --[[ opt.wbr = opt.stl ]]
+--

@@ -56,6 +56,8 @@ return packer.startup(function(use)
 	-- My plugins here
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
 
+	use({ "lewis6991/impatient.nvim" })
+
 	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
 
 	use({
@@ -64,6 +66,7 @@ return packer.startup(function(use)
 			require("user.autopairs")
 		end,
 		after = "nvim-cmp",
+		event = "InsertEnter",
 		requires = "nvim-cmp",
 	}) -- Autopairs, integrates with both cmp and treesitter
 
@@ -96,6 +99,7 @@ return packer.startup(function(use)
 	use({
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
+		after = "onedark.nvim",
 		event = "BufWinEnter",
 		config = function()
 			require("user.bufferline")
@@ -108,7 +112,7 @@ return packer.startup(function(use)
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
-		--after = { "bufferline.nvim", "gitsigns.nvim", "onedark.nvim" },
+		after = { "onedark.nvim" },
 		event = "BufWinEnter",
 		config = function()
 			require("user.lualine")
@@ -118,7 +122,7 @@ return packer.startup(function(use)
 	--https://github.com/akinsho/toggleterm.nvim
 	use({
 		"akinsho/toggleterm.nvim",
-		--event = "BufRead",
+		cmd = "ToggleTerm",
 		config = function()
 			require("user.toggleterm")
 		end,
@@ -131,8 +135,6 @@ return packer.startup(function(use)
 			require("user.project")
 		end,
 	})
-
-	use({ "lewis6991/impatient.nvim" })
 
 	-- https://github.com/lukas-reineke/indent-blankline.nvim
 	use({
@@ -156,6 +158,15 @@ return packer.startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
+			{ "L3MON4D3/LuaSnip", event = "InsertCharPre", after = "nvim-cmp" },
+			{
+				"rafamadriz/friendly-snippets",
+				after = "LuaSnip",
+				event = "InsertCharPre",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
 			{ --https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
@@ -165,6 +176,7 @@ return packer.startup(function(use)
 			},
 			{ --https://github.com/ray-x/lsp_signature.nvim
 				"ray-x/lsp_signature.nvim",
+				after = "nvim-cmp",
 				config = function()
 					require("user.lsp-signature")
 				end,
@@ -182,26 +194,38 @@ return packer.startup(function(use)
 		end,
 	}) -- The completion plugin
 
-	-- snippets
-	use({ "L3MON4D3/LuaSnip", after = "nvim-cmp" }) --snippet engine
+	-- LSP
+	use({
+		"williamboman/mason.nvim",
+		config = function()
+			require("user.lsp.mason")
+		end,
+		event = "VimEnter",
+	})
 
 	use({
-		"rafamadriz/friendly-snippets",
-		after = "LuaSnip",
+		"williamboman/mason-lspconfig.nvim",
+		after = "mason.nvim",
 		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
+			require("user.lsp.lspconfig")
 		end,
-	}) -- a bunch of snippets to use
+	})
 
-	-- LSP
-	use({ "neovim/nvim-lspconfig" }) -- enable LSP
+	use({
+		"neovim/nvim-lspconfig",
+		after = "mason.nvim",
+		config = function()
+			require("user.lsp.handlers").setup()
+		end,
+	}) -- enable LSP
 
-	--[[ use { "williamboman/nvim-lsp-installer"} -- simple to use language server installer ]]
-	use({ "williamboman/mason.nvim" })
-
-	use({ "williamboman/mason-lspconfig.nvim" })
-
-	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		after = "nvim-lspconfig",
+		config = function()
+			require("user.lsp.null-ls")
+		end,
+	}) -- for formatters and linters
 
 	use({
 		"RRethy/vim-illuminate",
@@ -217,7 +241,7 @@ return packer.startup(function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		after = "plenary.nvim",
-		--cmd = "Telescope",
+		cmd = "Telescope",
 		module = "telescope",
 		config = function()
 			require("user.telescope")
@@ -245,13 +269,14 @@ return packer.startup(function(use)
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
-		--event = "BufRead",
 		config = function()
 			require("user.treesitter")
 		end,
 	})
+
 	use({
 		"abecodes/tabout.nvim",
+		event = "InsertEnter",
 		config = function()
 			require("user.tabout")
 		end,
@@ -287,7 +312,7 @@ return packer.startup(function(use)
 	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
-	use({ "ravenxrz/DAPInstall.nvim" , after = "nvim-dap" })
+	use({ "ravenxrz/DAPInstall.nvim", after = "nvim-dap" })
 
 	-- Symbol Tree
 	-- https://github.com/simrat39/symbols-outline.nvim
@@ -295,7 +320,8 @@ return packer.startup(function(use)
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
-		event = "BufWinEnter",
+		--[[ event = "BufWinEnter", ]]
+        cmd="SymbolsOutline",
 		after = "nvim-lspconfig",
 		config = function()
 			require("user.symbols-outline")
@@ -305,6 +331,7 @@ return packer.startup(function(use)
 	-- Colorschemes
 	use({
 		"navarasu/onedark.nvim",
+		after = "packer.nvim",
 		config = function()
 			require("user.onedark")
 		end,
@@ -323,6 +350,7 @@ return packer.startup(function(use)
 	use({
 		"phaazon/hop.nvim",
 		event = "BufRead",
+		cmd = { "HopWordMW", "HopLineStartMW", "HopAnywhereMW", "HopPattern" },
 		as = "hop",
 		config = function()
 			require("user.hop")
@@ -340,6 +368,7 @@ return packer.startup(function(use)
 	use({
 		"jedrzejboczar/possession.nvim",
 		event = "BufRead",
+		cmd = "PossessionLoad",
 		requires = { "plenary.nvim" },
 		config = function()
 			require("user.possession")
@@ -390,7 +419,7 @@ return packer.startup(function(use)
 
 	use({
 		"Pocco81/true-zen.nvim",
-		event = "BufRead",
+		cmd = "TZMinimalist",
 		config = function()
 			require("user.true-zen")
 		end,
@@ -435,7 +464,11 @@ return packer.startup(function(use)
 
 	use({ "folke/neodev.nvim", ft = { "lua" } })
 
-	use({ "norcalli/nvim-colorizer.lua", event = "InsertEnter" })
+	use({ "norcalli/nvim-colorizer.lua", 
+		config = function()
+			require("colorizer").setup()
+		end,
+        event = "BufRead" })
 
 	-- https://github.com/nvim-neorg/neorg
 	-- https://github.com/ray-x/navigator.lua

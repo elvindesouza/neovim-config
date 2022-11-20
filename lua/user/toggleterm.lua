@@ -4,9 +4,8 @@ if not status_ok then
 end
 
 toggleterm.setup({
-	size = 7,
-	--open_mapping = [[<c-`>]],
-	open_mapping = [[<c-\>]],
+	--[[ size = 7, ]]
+    open_mapping = [[<c-\>]],
 	hide_numbers = true,
 	shade_terminals = true,
 	shading_factor = 2,
@@ -14,7 +13,7 @@ toggleterm.setup({
 	insert_mappings = true,
 	persist_size = true,
 	--[[ direction = "horizontal", ]]
-	direction = "float",
+	direction = "horizontal",
 	close_on_exit = true,
 	shell = "zsh",
 	float_opts = {
@@ -53,7 +52,7 @@ function _NCDU_TOGGLE()
 	ncdu:toggle()
 end
 
-local htop = Terminal:new({ cmd = "htop", hidden = true })
+local htop = Terminal:new({ cmd = "btop", hidden = true })
 
 function _HTOP_TOGGLE()
 	htop:toggle()
@@ -64,3 +63,10 @@ local python = Terminal:new({ cmd = "python", hidden = true })
 function _PYTHON_TOGGLE()
 	python:toggle()
 end
+
+local lfcd = Terminal:new({ cmd = "lfcd", hidden = true })
+
+function _LF_TOGGLE()
+	lfcd:toggle()
+end
+
