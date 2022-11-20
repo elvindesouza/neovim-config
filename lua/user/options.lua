@@ -52,7 +52,7 @@ cmd("set mousescroll=ver:1,hor:5")
 
 opt.shell="/bin/bash"
 opt.hidden=true
-opt.lazyredraw=true
+--[[ opt.lazyredraw=true ]]
 -- Set the winbar to the statusline.
 --[[ opt.wbr = opt.stl ]]
 --

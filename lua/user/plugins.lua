@@ -58,8 +58,6 @@ return packer.startup(function(use)
 
 	use({ "lewis6991/impatient.nvim" })
 
-	use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
-
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
@@ -86,6 +84,7 @@ return packer.startup(function(use)
 		"kyazdani42/nvim-tree.lua",
 		requires = {
 			"kyazdani42/nvim-web-devicons", -- optional, for file icons
+			after = "onedark.nvim",
 		},
 		cmd = "NvimTreeToggle",
 		after = "nvim-web-devicons",
@@ -106,7 +105,7 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({ "moll/vim-bbye" })
+	use({ "moll/vim-bbye", event = "BufWinLeave" })
 
 	-- https://github.com/nvim-lualine/lualine.nvim
 	use({
@@ -240,7 +239,7 @@ return packer.startup(function(use)
 	-- https://github.com/nvim-telescope/telescope.nvim
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+		requires = { "nvim-lua/plenary.nvim", after = "packer.nvim" },
 		after = "plenary.nvim",
 		cmd = "Telescope",
 		module = "telescope",
@@ -273,6 +272,12 @@ return packer.startup(function(use)
 		config = function()
 			require("user.treesitter")
 		end,
+	})
+
+	-- https://github.com/windwp/nvim-ts-autotag
+	use({
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
 	})
 
 	use({
@@ -322,7 +327,7 @@ return packer.startup(function(use)
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
-		event = "BufWinEnter",
+		--[[ event = "BufWinEnter", ]]
 		cmd = "SymbolsOutline",
 		after = "nvim-lspconfig",
 		disable = true,
@@ -431,6 +436,7 @@ return packer.startup(function(use)
 	use({
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig",
+		event = "BufRead",
 		after = "nvim-lspconfig",
 		config = function()
 			require("user.navic")
@@ -441,20 +447,14 @@ return packer.startup(function(use)
 	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", disable = true })
 
 	-- https://github.com/rcarriga/nvim-notify#Installation
-	use({
-		"rcarriga/nvim-notify",
-		disable = true,
-		after = "alpha-nvim",
-		config = function()
-			require("user.notify")
-		end,
-	})
-
-	-- https://github.com/windwp/nvim-ts-autotag
-	use({
-		"windwp/nvim-ts-autotag",
-		event = "InsertEnter",
-	})
+	--[[ use({ ]]
+	--[[ 	"rcarriga/nvim-notify", ]]
+	--[[ 	event = "BufRead", ]]
+	--[[        after = {"alpha-nvim"}, ]]
+	--[[ 	config = function() ]]
+	--[[ 		require("user.notify") ]]
+	--[[ 	end, ]]
+	--[[ }) ]]
 
 	-- lua with packer.nvim
 	use({
@@ -473,6 +473,28 @@ return packer.startup(function(use)
 			require("colorizer").setup()
 		end,
 		event = "BufRead",
+	})
+
+	use({
+		"folke/noice.nvim",
+		config = function()
+			require("user.noice")
+		end,
+		after = "alpha-nvim",
+		event = "BufReadPost",
+		requires = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			{
+				"rcarriga/nvim-notify",
+				config = function()
+					require("user.notify")
+				end,
+			},
+		},
 	})
 
 	-- https://github.com/nvim-neorg/neorg
