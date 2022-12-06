@@ -327,7 +327,7 @@ return packer.startup(function(use)
 	use({
 		"simrat39/symbols-outline.nvim",
 		requires = "nvim-lspconfig",
-		--[[ event = "BufWinEnter", ]]
+		event = "BufReadPost",
 		cmd = "SymbolsOutline",
 		after = "nvim-lspconfig",
 		disable = true,
@@ -481,7 +481,7 @@ return packer.startup(function(use)
 			require("user.noice")
 		end,
 		after = "alpha-nvim",
-		event = "BufReadPost",
+		event = "BufReadPre",
 		requires = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",

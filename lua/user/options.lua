@@ -33,7 +33,7 @@ opt.wrap = false -- display lines as one long line
 opt.scrolloff = 8 -- is one of my fav
 opt.sidescrolloff = 8
 --[[ opt.guifont = "Iosevka_Nerd_Font_Mono:h28" ]]
-opt.guifont = "Iosevka Nerd Font Mono:h28"
+opt.guifont = "Iosevka Nerd Font Mono:h30"
 opt.title = true
 opt.fillchars.eob = " "
 opt.shortmess:append("c")
