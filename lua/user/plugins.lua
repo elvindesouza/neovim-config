@@ -395,6 +395,8 @@ return packer.startup(function(use)
 	--https://github.com/iamcco/markdown-preview.nvim
 	use({
 		"frabjous/knap",
+
+		disable = true,
 		config = function()
 			require("user.knap")
 		end,
