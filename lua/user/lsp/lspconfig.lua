@@ -17,7 +17,7 @@ local servers = {
 	"eslint",
 	"jsonls",
 	"vimls",
-	"sumneko_lua",
+	"lua_ls",
 	"jdtls",
 	--[[ "groovyls", ]]
 	"asm_lsp",
