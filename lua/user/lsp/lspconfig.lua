@@ -17,10 +17,10 @@ local servers = {
 	"eslint",
 	"jsonls",
 	"vimls",
-	--[[ "lua_ls", ]]
+	"lua_ls",
 	"jdtls",
 	--[[ "groovyls", ]]
-	"asm_lsp",
+	--[[ "asm_lsp", ]]
 	"marksman",
 	"intelephense",
 	"sqlls",
