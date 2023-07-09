@@ -4,14 +4,13 @@ if not status_ok then
 end
 
 local servers = {
+	"pyright",
 	"cssls",
 	"html",
 	"tsserver",
-	"pyright",
 	"bashls",
 	"jsonls",
 	"yamlls",
-	"awk_ls",
 	"bashls",
 	"clangd",
 	"eslint",
@@ -19,12 +18,14 @@ local servers = {
 	"vimls",
 	"lua_ls",
 	"jdtls",
-	--[[ "groovyls", ]]
-	--[[ "asm_lsp", ]]
 	"marksman",
 	"intelephense",
 	"sqlls",
+    "texlab",
 
+	-- "awk_ls",
+	--[[ "groovyls", ]]
+	--[[ "asm_lsp", ]]
 	--[[ "actionlint", ]]
 	--[[ "asm-lsp", ]]
 	--[[ "awk-language-server", ]]
@@ -66,7 +67,6 @@ local servers = {
 	--[[ "prettier", ]]
 	--[[ "proselint", ]]
 	--[[ "pylint", ]]
-	--[[ "pyright", ]]
 	--[[ "shellcheck", ]]
 	--[[ "shellharden", ]]
 	--[[ "shfmt", ]]
@@ -101,16 +101,12 @@ end
 
 local opts = {}
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 for _, server in pairs(servers) do
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
 		capabilities = require("user.lsp.handlers").capabilities,
 	}
-
-	if server == "sumneko_lua" then
-		local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-	end
 
 	if server == "pyright" then
 		local pyright_opts = require("user.lsp.settings.pyright")
@@ -121,5 +117,11 @@ for _, server in pairs(servers) do
 		local awk_opts = require("user.lsp.settings.awk_ls")
 		opts = vim.tbl_deep_extend("force", awk_opts, opts)
 	end
+
+	if server == "lua_ls" then
+		local lua_opts = require("user.lsp.settings.lua_ls")
+		opts = vim.tbl_deep_extend("force", lua_opts, opts)
+	end
+
 	lspconfig[server].setup(opts)
 end

@@ -1,6 +1,6 @@
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
-	return
+    return
 end
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
@@ -19,47 +19,54 @@ local completion = null_ls.builtins.completion
 
 -- https://github.com/prettier-solidity/prettier-plugin-solidity
 null_ls.setup({
-	on_init = function(new_client, _)
-		new_client.offset_encoding = "utf-16"
-	end,
+    on_init = function(new_client, _)
+        new_client.offset_encoding = "utf-16"
+    end,
+    debug = false,
+    sources = {
+        code_actions.shellcheck,
+        code_actions.cspell.with({
+            filetypes = { "text", "markdown" },
+        }),
+        code_actions.eslint,
+        code_actions.gitsigns,
+        code_actions.proselint,
+        code_actions.shellcheck,
+        completion.spell.with({
+            filetypes = { "text", "markdown" },
+        }),
 
-	debug = false,
-	sources = {
-		code_actions.shellcheck,
-		code_actions.cspell.with({
-			filetypes = { "text", "markdown" },
-		}),
-		code_actions.eslint,
-		code_actions.gitsigns,
-		code_actions.proselint,
-		code_actions.shellcheck,
 
-		diagnostics.cspell.with({
-			filetypes = { "text", "markdown" },
-		}),
-		diagnostics.shellcheck,
-		diagnostics.clang_check,
-		diagnostics.cppcheck,
-		diagnostics.cpplint,
-		diagnostics.codespell,
-		diagnostics.flake8.with({ "--extend-ignore=E501" }),
-		diagnostics.luacheck,
-		diagnostics.pylama,
+        diagnostics.cspell.with({
+            filetypes = { "text", "markdown" },
+        }),
+        diagnostics.shellcheck,
+        diagnostics.clang_check,
+        diagnostics.cppcheck,
+        diagnostics.cpplint,
+        -- diagnostics.codespell,
+        diagnostics.flake8.with({ "--extend-ignore=E501" }),
+        diagnostics.luacheck,
+        diagnostics.pylama,
+        --diagnostics.markdownlint,
+        --diagnostics.mypy,
+        --diagnostics.proselint,
 
-		--formatting.astyle,
-		-- formatting.beautysh,
-		--formatting.clang_format,
-		formatting.shfmt,
-		--[[ formatting.beautysh, ]]
-		--formatting.eslint,
-		--formatting.codespell
-		formatting.shellharden,
-		formatting.prettier.with({
-			extra_filetypes = { "toml" },
-			extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-		}),
-		formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.stylua,
-		--[[ formatting.isort, use pyrightorganizeimports]] 
-	},
+        --formatting.astyle,
+        -- formatting.beautysh,
+        --formatting.clang_format,
+        formatting.shfmt,
+        --[[ formatting.beautysh, ]]
+        --formatting.eslint,
+        --formatting.codespell
+        formatting.shellharden,
+        formatting.prettier.with({
+            extra_filetypes = { "toml" },
+            extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+        }),
+        formatting.black.with({ extra_args = { "--fast" } }),
+        formatting.stylua,
+        --[[ formatting.isort, use pyrightorganizeimports]]
+        hover.dictionary
+    },
 })

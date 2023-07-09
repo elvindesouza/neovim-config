@@ -1,5 +1,5 @@
-local status_ok_navic, tz = pcall(require, "true-zen")
-if not status_ok_navic then
+local status_ok_true_zen, tz = pcall(require, "true-zen")
+if not status_ok_true_zen then
 	return
 end
 

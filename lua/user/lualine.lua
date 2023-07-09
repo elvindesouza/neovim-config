@@ -10,7 +10,7 @@ local hide_in_width = function()
 	return vim.fn.winwidth(0) > 50
 end
 
-local navic = require("nvim-navic")
+-- local navic = require("nvim-navic")
 
 local diagnostics = {
 	"diagnostics",
@@ -83,7 +83,9 @@ lualine.setup({
 		},
 		lualine_b = { diagnostics },
 		lualine_c = { current_signature },
-		lualine_x = { { navic.get_location, cond = navic.is_available } },
+        -- Navic plugin removed
+		-- lualine_x = { { navic.get_location, cond = navic.is_available } },
+		lualine_x = {},
 		lualine_y = {},
 		--[[ lualine_ diffz = { "progress" }, ]]
 		lualine_z = {
