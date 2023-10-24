@@ -81,16 +81,15 @@ keymap("t", "<C-\\>", "<cmd>ToggleTerm<CR>", opts)
 
 
 -- Comment
--- TODO fix bindings
 --[[ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts) ]]
 --[[ keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").locked("comment.linewise")(vim.fn.visualmode())<CR>') ]]
 --[[ keymap("n", "", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts) ]]
 --[[ keymap("x", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>") ]]
 --[[ keymap("i", "", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>") ]]
-keymap("n", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("i", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "<C-/>", "<ESC><CMD>lua require('Comment.api').locked('comment.linewise')(vim.fn.visualmode())<CR>")
-keymap("v", "<C-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
+keymap("n", "<c-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", opts)
+keymap("i", "<c-/>", "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", opts)
+keymap("v", "<c-/>", "<cmd>lua require('Comment.api').toggle.blockwise.current()<cr>", opts)
+keymap("x", "<c-/>", "<esc><cmd>lua require('Comment.api').toggle.blockwise(vim.fn.visualmode())<cr>", opts)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)

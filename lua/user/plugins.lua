@@ -1,52 +1,29 @@
 local fn = vim.fn
 
--- Automatically install paccker
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system({
+-- Install lazy.nvim
+local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    fn.system({
         "git",
         "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
     })
-    print("Installing packer close and reopen Neovim...")
-    vim.cmd([[packadd packer.nvim]])
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-      " autocmd!
-      " autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+----------------------------------
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
+local status_ok, lazy = pcall(require, "lazy")
 if not status_ok then
     return
 end
 
--- Have packer use a popup window
-packer.init({
-    display = {
-        open_fn = function()
-            return require("packer.util").float({
-                border = "rounded",
-            })
-        end,
-    },
-    profile = {
-        enable = true,
-        threshold = 10, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
-    },
-    autoremove = true,  -- Remove disabled or unused plugins without prompting the user
-})
-
 -- Install your plugins here
-return packer.startup(function(use)
+lazy.setup({
     -- https://github.com/rockerBOO/awesome-neovim#project
     -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
     -- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
@@ -54,211 +31,210 @@ return packer.startup(function(use)
     -- https://www.lunarvim.org/docs/plugins/core-plugins-list
     -- https://neovimcraft.com/
 
-    -- My plugins here
-    use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
-
-    use({ "lewis6991/impatient.nvim" })
-
-    use({
+    {
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        lazy = true,
         config = function()
             require("user.autopairs")
         end,
-        after = "nvim-cmp",
-        event = "InsertEnter",
-        requires = "nvim-cmp",
-    }) -- Autopairs, integrates with both cmp and treesitter
+    }, -- Autopairs, integrates with both cmp and treesitter
 
-    use({
+    {
         "numToStr/Comment.nvim",
-        after = { "nvim-ts-context-commentstring", after = "nvim-treesitter" },
-        event = "BufRead",
+        event = "InsertEnter",
+        lazy = true,
+        dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
         config = function()
             require("user.comment")
         end,
-    })
-
-    use({ "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" })
+    },
 
     -- https://github.com/kyazdani42/nvim-tree.lua
-    use({
+    {
         "kyazdani42/nvim-tree.lua",
-        requires = {
+        lazy = true,
+        dependencies = {
             "kyazdani42/nvim-web-devicons", -- optional, for file icons
-            after = "onedark.nvim",
         },
         cmd = "NvimTreeToggle",
-        after = "nvim-web-devicons",
         config = function()
             require("user.nvim-tree")
         end,
         tag = "nightly", -- optional, updated every week.
-    })
+    },
 
     -- https://github.com/akinsho/bufferline.nvim
-    use({
+    {
         "akinsho/bufferline.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        after = "onedark.nvim",
-        event = "BufRead",
+        lazy = true,
+        dependencies = {"kyazdani42/nvim-web-devicons","moll/vim-bbye",},
+        event = "BufReadPost",
         config = function()
             require("user.bufferline")
         end,
-    })
+    },
 
-    use({ "moll/vim-bbye", event = "BufWinLeave" })
+    {
+        "moll/vim-bbye",
+        event = "BufWinLeave",
+        lazy = true,
+    },
 
     -- https://github.com/nvim-lualine/lualine.nvim
-    use({
+    {
         "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons" },
-        after = { "onedark.nvim" },
-        event = "BufRead",
+        lazy = true,
+        dependencies = { "kyazdani42/nvim-web-devicons" },
+        event = "BufReadPost",
         config = function()
             require("user.lualine")
         end,
-    })
+    },
 
     --https://github.com/akinsho/toggleterm.nvim
-    use({
+    {
         "akinsho/toggleterm.nvim",
+        lazy = true,
         cmd = "ToggleTerm",
         config = function()
             require("user.toggleterm")
         end,
-    })
+    },
 
-    use({
+    {
         "ahmedkhalf/project.nvim",
+        lazy = true,
         event = "BufRead",
         config = function()
             require("user.project")
         end,
-    })
+    },
 
     -- https://github.com/lukas-reineke/indent-blankline.nvim
-    use({
+    {
         "lukas-reineke/indent-blankline.nvim",
-        event = "BufRead",
+        lazy = true,
+        event = "VeryLazy",
         cmd = "IndentBlanklineRefresh",
         config = function()
             require("user.indentline")
         end,
-    })
+    },
 
-    use({
+    {
         "goolord/alpha-nvim",
-        requires = { "kyazdani42/nvim-web-devicons" },
-        after = "onedark.nvim",
+        dependencies = { "kyazdani42/nvim-web-devicons",
+        "ahmedkhalf/project.nvim",
+        },
         config = function()
             require("user.alpha")
         end,
-    })
+    },
 
     -- cmp plugins
-    use({
+    {
         "hrsh7th/nvim-cmp",
-        requires = {
-            { "L3MON4D3/LuaSnip",     event = "InsertCharPre", after = "nvim-cmp" },
+        lazy = true,
+        dependencies = {
+            { "L3MON4D3/LuaSnip" },
             {
                 "rafamadriz/friendly-snippets",
-                after = "LuaSnip",
-                event = "InsertCharPre",
                 config = function()
                     require("luasnip.loaders.from_vscode").lazy_load()
                 end,
             },
-            { "hrsh7th/cmp-buffer",   after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-nvim-lsp" },
             {
                 --https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
                 "hrsh7th/cmp-nvim-lsp-signature-help",
-                after = "nvim-cmp",
-                disable = true,
+                enabled = false,
             },
             {
                 --https://github.com/ray-x/lsp_signature.nvim
                 "ray-x/lsp_signature.nvim",
-                after = "nvim-cmp",
                 config = function()
                     require("user.lsp-signature")
                 end,
             },
-            { "hrsh7th/cmp-path",                     after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lua",                 after = "nvim-cmp" },
-            { "saadparwaiz1/cmp_luasnip",             after = "nvim-cmp" },
-            { "lukas-reineke/cmp-under-comparator",   after = "nvim-cmp" },
-            { "hrsh7th/cmp-cmdline",                  after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
+            { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-nvim-lua" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "lukas-reineke/cmp-under-comparator" },
+            { "hrsh7th/cmp-cmdline" },
+            { "hrsh7th/cmp-nvim-lsp-document-symbol" },
         },
         event = "InsertEnter",
         config = function()
             require("user.cmp")
         end,
-    }) -- The completion plugin
+    }, -- The completion plugin
 
     -- LSP
-    use({
+    {
         "williamboman/mason.nvim",
+        lazy = true,
         config = function()
             require("user.lsp.mason")
         end,
-        event = "VimEnter",
-    })
+    },
 
-    use({
+    {
         "williamboman/mason-lspconfig.nvim",
-        after = "mason.nvim",
+        lazy = true,
+        event = "BufRead",
         config = function()
             require("user.lsp.lspconfig")
         end,
-    })
+    },
 
-    use({
+    {
         "neovim/nvim-lspconfig",
-        after = "mason.nvim",
+        lazy = true,
+        dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
         config = function()
             require("user.lsp.handlers").setup()
         end,
-    }) -- enable LSP
+    }, -- enable LSP
 
-    use({
+    {
         "jose-elias-alvarez/null-ls.nvim",
-        after = "nvim-lspconfig",
+        lazy = true,
         config = function()
             require("user.lsp.null-ls")
         end,
-    }) -- for formatters and linters
+    }, -- for formatters and linters
 
-    use({
+    {
         "RRethy/vim-illuminate",
-        event = "BufRead",
+        lazy = true,
         config = function()
             require("user.illuminate")
         end,
-    })
+    },
 
     -- Telescope
     -- https://github.com/nvim-telescope/telescope.nvim
-    use({
+    {
         "nvim-telescope/telescope.nvim",
-        requires = { "nvim-lua/plenary.nvim", after = "packer.nvim" },
-        after = "plenary.nvim",
+        lazy = true,
+        dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "Telescope",
         module = "telescope",
         config = function()
             require("user.telescope")
         end,
-    })
+    },
 
     -- Treesitter
-    use({
+    {
         "nvim-treesitter/nvim-treesitter",
-        requires = {
-            { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
+        lazy = true,
+        dependencies = {
+            { "p00f/nvim-ts-rainbow" },
             {
                 "nvim-treesitter/nvim-treesitter-context",
-                after = "nvim-treesitter",
                 config = function()
                     require("user.ts-context")
                 end,
@@ -266,230 +242,225 @@ return packer.startup(function(use)
             {
                 --https://github.com/nvim-treesitter/nvim-treesitter-textobjects
                 "nvim-treesitter/nvim-treesitter-textobjects",
-                after = "nvim-treesitter",
             },
         },
-        event = "BufRead",
+        event = "VimEnter",
         run = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
         config = function()
             require("user.treesitter")
         end,
-    })
+    },
 
     -- https://github.com/windwp/nvim-ts-autotag
-    use({
+    {
         "windwp/nvim-ts-autotag",
+        lazy = true,
         event = "InsertEnter",
-    })
+    },
 
-    use({
+    {
         "abecodes/tabout.nvim",
         event = "InsertEnter",
+        lazy = true,
         config = function()
             require("user.tabout")
         end,
         wants = { "nvim-treesitter" }, -- or require if not used so far
-        after = { "nvim-cmp" },        -- if a completion plugin is using tabs load it before
-    })
+    },
+
     -- Git
     -- https://github.com/lewis6991/gitsigns.nvim
-    use({
+    {
         "lewis6991/gitsigns.nvim",
-        requires = "nvim-lua/plenary.nvim",
-        event = "BufRead",
-        after = { "plenary.nvim" },
+        lazy = true,
+        dependencies = "nvim-lua/plenary.nvim",
+        event = "VeryLazy",
         config = function()
             require("user.gitsigns")
         end,
-    })
+    },
 
     -- DAP
     -- https://github.com/mfussenegger/nvim-dap
-    use({
+    {
         "mfussenegger/nvim-dap",
-        --[[ disable = true, ]]
+        lazy = true,
         cmd = { "BreakpointToggle", "Debug", "DapREPL" },
         config = function()
             require("user.dap")
         end,
-    })
+    },
 
-    use({
+    {
         "rcarriga/nvim-dap-ui",
-        requires = { "mfussenegger/nvim-dap" },
-        after = "nvim-dap",
-    })
+        lazy = true,
+        dependencies = { "mfussenegger/nvim-dap" },
+    },
 
     -- Automatically set up your configuration after cloning packer.nvim
-    use({ "ravenxrz/DAPInstall.nvim", after = "nvim-dap" })
+    { "ravenxrz/DAPInstall.nvim", lazy = true, },
+
 
     -- Symbol Tree
     -- https://github.com/simrat39/symbols-outline.nvim
     -- https://github.com/stevearc/aerial.nvim
-    use({
+    {
         "simrat39/symbols-outline.nvim",
-        requires = "nvim-lspconfig",
-        event = "BufReadPost",
-        cmd = "SymbolsOutline",
-        after = "nvim-lspconfig",
-        disable = true,
+        lazy = true,
+        dependencies = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter",
+            "navarasu/onedark.nvim", },
+        -- event = "InsertEnter",
+        --enabled = false,
+        -- cmd = "SymbolsOutline",
         config = function()
             require("user.symbols-outline")
         end,
-    })
+    },
 
     -- Colorschemes
-    use({
+    {
         "navarasu/onedark.nvim",
-        after = "packer.nvim",
+        lazy = false,
+        priority = 1000,
         config = function()
             require("user.onedark")
         end,
-    }) -- https://github.com/navarasu/onedark.nvim colourscheme
+    }, -- https://github.com/navarasu/onedark.nvim colourscheme
 
-    use({
+    {
         "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        lazy = true,
+        version = "*",
         event = "BufRead",
         config = function()
             require("user.nvim-surround")
         end,
-    })
+    },
 
     -- https://github.com/phaazon/hop.nvim#usage
-    use({
+    {
         "phaazon/hop.nvim",
+        lazy = true,
         event = "BufRead",
         cmd = { "HopWordMW", "HopLineStartMW", "HopAnywhereMW", "HopPattern" },
         as = "hop",
         config = function()
             require("user.hop")
         end,
-    })
+    },
 
-    use({
+    {
         "folke/which-key.nvim",
+        lazy = true,
+        lazy = true,
         config = function()
             require("user.which-key")
         end,
         event = "VimEnter",
-    })
+    },
 
-    use({
+    {
         "jedrzejboczar/possession.nvim",
-        event = "BufRead",
-        cmd = "PossessionLoad",
-        requires = { "plenary.nvim" },
+        lazy = true,
+        event = "VeryLazy",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("user.possession")
         end,
-    })
+    },
 
-    use({
+    {
         "CRAG666/code_runner.nvim",
-        requires = "nvim-lua/plenary.nvim",
+        lazy = true,
+        dependencies = "nvim-lua/plenary.nvim",
         ft = { "python", "sh", "bash", "zsh", "javascript", "c", "cpp" },
         config = function()
             require("user.code-runner")
         end,
-    })
+    },
 
     --https://github.com/iamcco/markdown-preview.nvim
-    use({
+    {
         "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
+        lazy = true,
+        run = function()
+            vim.fn["mkdp#util#install"]()
+        end,
         ft = { "markdown" },
         config = function()
             require("user.markdown-preview")
         end,
-    })
+    },
 
-    use({
+    {
         "jghauser/follow-md-links.nvim",
-        disable = true,
+        lazy = true,
+        enabled = false,
         ft = { "markdown" },
-    })
+    },
 
     --https://github.com/folke/trouble.nvim
-    use({
+    {
         "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        event = "BufRead",
+        lazy = true,
+        dependencies = "kyazdani42/nvim-web-devicons",
+        event = "VeryLazy",
         config = function()
             require("user.trouble")
         end,
-    })
+    },
 
-    use({
-        "Pocco81/auto-save.nvim",
-        disable = true,
-        config = function()
-            require("user.auto-save")
-        end,
-        event = "InsertLeavePre",
-    })
-
-    use({
+    {
         "Pocco81/true-zen.nvim",
+        lazy = true,
         cmd = "TZMinimalist",
         config = function()
             require("user.true-zen")
         end,
-    })
-
-    use({
-        "SmiteshP/nvim-navic",
-        requires = "neovim/nvim-lspconfig",
-        disable = true,
-        event = "BufRead",
-        after = "nvim-lspconfig",
-        config = function()
-            require("user.navic")
-        end,
-    })
+    },
 
     --https://github.com/TimUntersberger/neogit
-    use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", disable = true })
-
-    -- https://github.com/rcarriga/nvim-notify#Installation
-    --[[ use({ ]]
-    --[[ 	"rcarriga/nvim-notify", ]]
-    --[[ 	event = "BufRead", ]]
-    --[[        after = {"alpha-nvim"}, ]]
-    --[[ 	config = function() ]]
-    --[[ 		require("user.notify") ]]
-    --[[ 	end, ]]
-    --[[ }) ]]
-    -- lua with packer.nvim
-    use({
+    {
+        "TimUntersberger/neogit",
+        lazy = true,
+        event = "VeryLazy",
+        dependencies = "nvim-lua/plenary.nvim",
+        enabled = false
+    },
+    {
         "max397574/better-escape.nvim",
+        lazy = true,
         event = "InsertEnter",
         config = function()
             require("user.better_escape")
         end,
-    })
+    },
 
-    use({ "folke/neodev.nvim", ft = { "lua" } })
+    { "folke/neodev.nvim",        lazy = true, ft = { "lua" } },
 
-    use({
+    {
+        --A high-performance color highlighter for Neovim which has no external dependencies
         "norcalli/nvim-colorizer.lua",
+        lazy = true,
+        event = "VeryLazy",
         config = function()
             require("colorizer").setup()
         end,
         event = "BufRead",
-    })
+    },
 
-    use({
+    {
+        --Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
         "folke/noice.nvim",
+        lazy = true,
+        -- enabled = false,
         config = function()
             require("user.noice")
         end,
-        --disable = true,
-        after = "alpha-nvim",
-        event = "BufReadPre",
-        requires = {
+        event = "BufReadPost",
+        dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "MunifTanjim/nui.nvim",
             -- OPTIONAL:
@@ -502,7 +473,7 @@ return packer.startup(function(use)
                 end,
             },
         },
-    })
+    },
 
     -- https://github.com/nvim-neorg/neorg
     -- https://github.com/ray-x/navigator.lua
@@ -510,10 +481,5 @@ return packer.startup(function(use)
     -- https://github.com/nvim-pack/nvim-spectre
     -- https://github.com/kdheepak/lazygit.nvim
 
-    --use("dstein64/vim-startuptime")
-
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-end)
+    --"dstein64/vim-startuptime")
+})

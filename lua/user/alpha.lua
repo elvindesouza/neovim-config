@@ -16,10 +16,9 @@ dashboard.section.header.val = {
 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 }
 dashboard.section.buttons.val = {
-	dashboard.button("l", "菱" .. " Load last session", "<CMD>PossessionLoad<CR>"),
 	dashboard.button("s", "舘" .. arrowr[1] .. " Search sessions", tele_custom .. "possession()<CR>"),
 	dashboard.button("f", " " .. " Find file", "<CMD>Telescope find_files <CR>"),
-	dashboard.button("e", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
+	-- dashboard.button("e", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
 	dashboard.button(
 		"p",
 		" " .. " Find project",
@@ -27,10 +26,11 @@ dashboard.section.buttons.val = {
 	),
 	dashboard.button("r", " " .. " Recent files", "<CMD>Telescope oldfiles <CR>"),
 	dashboard.button("t", " " .. " Find text", "<CMD>Telescope live_grep <CR>"),
-	dashboard.button("ps", " " .. " Update plugins", "<CMD>PackerSync<CR>"),
+	dashboard.button("ps", " " .. " Update plugins", "<CMD>Lazy sync<CR>"),
 	dashboard.button("c", " " .. " Config", "<CMD>e ~/.config/nvim/init.lua <CR>"),
 	dashboard.button("q", " " .. " Quit", "<CMD>qa<CR>"),
 }
+
 local function footer()
 	return "https://elvindesouza.github.io"
 end

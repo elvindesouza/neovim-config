@@ -1,5 +1,5 @@
-local status_ok_navic, trouble = pcall(require, "trouble")
-if not status_ok_navic then
+local status_ok_trouble, trouble = pcall(require, "trouble")
+if not status_ok_trouble then
 	return
 end
 

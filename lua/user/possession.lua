@@ -4,10 +4,10 @@ if not status_ok then
 end
 
 local new_commands = {
-	--	save = "Ssave",
-	--	load = "Sload",
-	--	delete = "Sdel",
-	--	list = "Slist",
+	save = "Ssave",
+	load = "Sload",
+	delete = "Sdel",
+	list = "Slist",
 }
 
 possession.setup({
