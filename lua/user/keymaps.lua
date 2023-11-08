@@ -140,6 +140,8 @@ keymap("v", "-", "g_", opts)
 -- insert seek to B/EOL
 keymap("i", "kl", "<ESC>g$i", opts)
 keymap("i", "kj", "<ESC>^i")
+-- insert jump to next line
+keymap("i", "<C-o>", "<ESC>o", opts)
 
 -- Move up/down editor lines
 keymap("n", "j", "gjzz", opts)
