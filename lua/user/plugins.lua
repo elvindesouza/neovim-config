@@ -40,6 +40,7 @@ lazy.setup({
 		end,
 	}, -- Autopairs, integrates with both cmp and treesitter
 
+    
 	{
 		"numToStr/Comment.nvim",
 		event = "InsertEnter",
@@ -48,7 +49,7 @@ lazy.setup({
 		config = function()
 			require("user.comment")
 		end,
-	}, -- commenting plugin for neovim
+	}, -- commenting plugin for neovim https://github.com/numToStr/Comment.nvim
 
 	-- https://github.com/kyazdani42/nvim-tree.lua
 	{
@@ -312,23 +313,8 @@ lazy.setup({
 	},
 
 	-- Symbol Tree
-	-- https://github.com/simrat39/symbols-outline.nvim
+	-- https://github.com/simrat39/symbols-outline.nvim is now archived
 	-- https://github.com/stevearc/aerial.nvim
-	{
-		"simrat39/symbols-outline.nvim",
-		lazy = true,
-		dependencies = {
-			"neovim/nvim-lspconfig",
-			"nvim-treesitter/nvim-treesitter",
-			"navarasu/onedark.nvim",
-		},
-		-- event = "InsertEnter",
-		enabled = false,
-		-- cmd = "SymbolsOutline",
-		config = function()
-			require("user.symbols-outline")
-		end,
-	},
 
 	{
 		"navarasu/onedark.nvim",
@@ -373,6 +359,7 @@ lazy.setup({
 	{
 		"jedrzejboczar/possession.nvim",
 		lazy = true,
+        enabled=false,
 		event = "VeryLazy",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
@@ -433,14 +420,15 @@ lazy.setup({
 		end,
 	},
 
-	--https://github.com/TimUntersberger/neogit
+	
 	{
 		"TimUntersberger/neogit",
 		lazy = true,
 		event = "VeryLazy",
 		dependencies = "nvim-lua/plenary.nvim",
 		enabled = false,
-	},
+	},--https://github.com/TimUntersberger/neogit
+
 	{
 		"max397574/better-escape.nvim",
 		lazy = true,
@@ -453,20 +441,19 @@ lazy.setup({
 	{ "folke/neodev.nvim", lazy = true, ft = { "lua" } },
 
 	{
-		--A high-performance color highlighter for Neovim which has no external dependencies
+		
 		"norcalli/nvim-colorizer.lua",
 		lazy = true,
 		event = "VeryLazy",
 		config = function()
 			require("colorizer").setup()
 		end,
-	},
+	},--A high-performance color highlighter for Neovim which has no external dependencies
 
 	{
-		--Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
+		
 		"folke/noice.nvim",
 		lazy = true,
-		-- enabled = false,
 		config = function()
 			require("user.noice")
 		end,
@@ -484,13 +471,11 @@ lazy.setup({
 				end,
 			},
 		},
-	},
+	},--Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 
 	-- https://github.com/nvim-neorg/neorg
 	-- https://github.com/ray-x/navigator.lua
 	-- https://github.com/stevearc/dressing.nvim
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- https://github.com/kdheepak/lazygit.nvim
-
-	--"dstein64/vim-startuptime")
 })

@@ -7,9 +7,8 @@ onedark.setup({
     style = "darker",
     ending_tildes = true,
     -- transparent=true,
-    --italic, bold, underline, none
     toggle_style_key = nil,
-    code_style = {
+    code_style = {--italic, bold, underline, none
         comments = "italic",
         keywords = "italic",
         functions = "none",
