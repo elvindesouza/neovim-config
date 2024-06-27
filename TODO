@@ -1,6 +1,9 @@
-1. Nuke branch history and start new master- do not track the AppImage, rely on the script to download and chmod+x the binary
-2. Go through plugins one at a time and update configs
+High Priority
+- Go through plugins one at a time and update configs
+Medium Priority
+Low Priority
+- integrate navigator
+- integrate symbols outline
+- get documentation when hover- its working, but not enough documentation?
 
 
-get documentation when hover- its working, but not enough documentation?
-integrate navigator

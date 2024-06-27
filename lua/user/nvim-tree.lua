@@ -3,47 +3,62 @@ if not status_ok then
     return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
-    return
+local icons = require("user.icons")
+local api = require("nvim-tree.api")
+
+local function edit_or_open()
+    local node = api.tree.get_node_under_cursor()
+
+    if node.nodes ~= nil then
+        -- expand or collapse folder
+        api.node.open.edit()
+    else
+        -- open file
+        api.node.open.edit()
+        -- Close the tree if file was opened
+        api.tree.close()
+    end
 end
 
-local icons = require("user.icons")
-local tree_cb = nvim_tree_config.nvim_tree_callback
---[[ local utils = require("nvim-tree.utils") ]]
-
---[[ utils.notify.warn = notify_level(vim.log.levels.WARN) ]]
---[[ utils.notify.error = notify_level(vim.log.levels.ERROR) ]]
---[[ utils.notify.info = notify_level(vim.log.levels.INFO) ]]
---[[ utils.notify.debug = notify_level(vim.log.levels.DEBUG) ]]
-
-local function open_nvim_tree()
-    local IGNORED_FT = {
-        "startify",
-        "dashboard",
-        "alpha",
-    }
-
-    -- skip ignored filetypes
-    if vim.tbl_contains(IGNORED_FT, filetype) then
-        return
+-- open as vsplit on current node
+local function vsplit_preview()
+    local node = api.tree.get_node_under_cursor()
+    if node.nodes ~= nil then
+        -- expand or collapse folder
+        api.node.open.edit()
+    else
+        -- open file as vsplit
+        api.node.open.vertical()
     end
+    -- Finally refocus on tree if it was lost
+    api.tree.focus()
+end
 
-    -- open the tree
-    require("nvim-tree.api").tree.open()
+local function my_on_attach(bufnr)
+    local api = require("nvim-tree.api")
+    local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    api.config.mappings.default_on_attach(bufnr)
+    vim.keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
+    vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
+    vim.keymap.set("n", "h", api.tree.close, opts("Close"))
+    vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
 end
 
 nvim_tree.setup({
+    on_attach = my_on_attach,
     update_focused_file = {
         enable = true,
         update_cwd = true,
     },
-    hijack_unnamed_buffer_when_opening = true,
-    hijack_cursor = true,
-    --[[ hijack_directories = { ]]
-    --[[ 	enable = false, ]]
-    --[[ }, ]]
+    -- 	hijack_unnamed_buffer_when_opening = true,
+    -- 	hijack_cursor = true,
+    -- 	--[[ hijack_directories = { ]]
+    -- 	--[[ 	enable = false, ]]
+    -- 	--[[ }, ]]
     filters = {
+        dotfiles = true,
         custom = { ".git" },
         exclude = { ".gitignore" },
     },
@@ -90,12 +105,5 @@ nvim_tree.setup({
     view = {
         width = 30,
         side = "left",
-        mappings = {
-            list = {
-                { key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-                { key = "h",                  cb = tree_cb("close_node") },
-                { key = "v",                  cb = tree_cb("vsplit") },
-            },
-        },
     },
 })

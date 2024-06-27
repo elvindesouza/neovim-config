@@ -165,11 +165,6 @@ keymap("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
 --keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 --keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
-----------nvim-tree settings
--- keymap("n", "<leader>0", ":NvimTreeFocus<CR>", opts)
-keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
-
-
 keymap("n", "<F1>", ":")
 keymap("n", ";", ":")
 
@@ -242,3 +237,6 @@ vim.keymap.set('i', '<C-p>', 'copilot#Accept("\\<CR>")', {
   replace_keycodes = false
 })
 vim.g.copilot_no_tab_map = true
+
+vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<cr>", opts)
+

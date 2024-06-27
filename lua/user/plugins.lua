@@ -96,6 +96,7 @@ lazy.setup({
     }, -- git decorations
 
     -- https://github.com/kyazdani42/nvim-tree.lua
+    -- WIP fixing config
     {
         "nvim-tree/nvim-tree.lua",
         lazy = true,
@@ -106,7 +107,6 @@ lazy.setup({
         config = function()
             require("user.nvim-tree")
         end,
-        tag = "nightly", -- optional, updated every week.
     },             -- file explorer
 
     -- https://github.com/akinsho/bufferline.nvim
