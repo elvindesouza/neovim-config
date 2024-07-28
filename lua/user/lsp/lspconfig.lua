@@ -35,7 +35,6 @@ local servers = {
 	-- "black",
 	-- "cbfmt",
 	-- "chrome-debug-adapter",
-	-- "clangd",
 	-- "cmake-language-server",
 	-- "cmakelang",
 	-- "codespell",
@@ -121,6 +120,11 @@ for _, server in pairs(servers) do
 	if server == "lua_ls" then
 		local lua_opts = require("user.lsp.settings.lua_ls")
 		opts = vim.tbl_deep_extend("force", lua_opts, opts)
+	end
+
+	if server == "clangd" then
+		local clangd_opts = require("user.lsp.settings.clangd")
+		opts = vim.tbl_deep_extend("force", clangd_opts, opts)
 	end
 
 	lspconfig[server].setup(opts)

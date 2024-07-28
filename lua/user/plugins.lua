@@ -30,6 +30,8 @@ lazy.setup({
     -- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim
     -- https://www.lunarvim.org/docs/plugins/core-plugins-list
     -- https://neovimcraft.com/
+    -- https://www.lazyvim.org/ List of plugins and sample configurations
+    -- TODO astrovim is using a symbol outline, see which one and how to integrate
 
     -- 1. Themes, Decorations, UI Improvements----------------------------------------------
     {
@@ -61,7 +63,7 @@ lazy.setup({
     }, --A high-performance color highlighter for Neovim which has no external dependencies
 
     {
-        "folke/noice.nvim",
+        "folke/noice.nvim", -- https://github.com/folke/noice.nvim
         lazy = true,
         -- enabled = false,
         config = function()
@@ -96,7 +98,6 @@ lazy.setup({
     }, -- git decorations
 
     -- https://github.com/kyazdani42/nvim-tree.lua
-    -- WIP fixing config
     {
         "nvim-tree/nvim-tree.lua",
         lazy = true,
@@ -340,7 +341,7 @@ lazy.setup({
 
     -- 4. Autocompletion -----------------------------------------------------------------
     {
-        "hrsh7th/nvim-cmp",
+        "hrsh7th/nvim-cmp", -- https://github.com/hrsh7th/nvim-cmp
         lazy = true,
         dependencies = {
             { "L3MON4D3/LuaSnip" },
@@ -407,7 +408,7 @@ lazy.setup({
                 lazy = true,
                 cmd = "TSContextToggle",
                 config = function()
-                    require("user.ts-context")
+                    require("user.nvim-treesitter-context")
                 end,
             },
             {

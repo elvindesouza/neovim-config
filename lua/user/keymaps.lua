@@ -171,7 +171,7 @@ keymap("n", ";", ":")
 keymap("n", "<M-z>", "<CMD>set wrap!<CR>", opts)
 
 
-keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR><CMD>lua vim.opt.cmdheight=0<CR>", opts)
+-- keymap("n", "<C-k>z", "<CMD>TZMinimalist<CR><CMD>lua vim.opt.cmdheight=0<CR>", opts)
 
 keymap("n", "<a-n>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
 keymap("n", "<a-p>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
