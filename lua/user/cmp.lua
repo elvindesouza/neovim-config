@@ -68,7 +68,7 @@ cmp.setup({
 		format = function(entry, vim_item)
 			vim_item.kind = kind_icons[vim_item.kind]
 			vim_item.menu = ({
-                copilot="ﮧ",
+                -- copilot="ﮧ",
 				nvim_lsp = "",
 				nvim_lua = "",
 				luasnip = "",
@@ -83,7 +83,7 @@ cmp.setup({
 		{
 			name = "nvim_lsp",
 		},
-		{ name = "copilot" },
+		-- { name = "copilot" },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lsp_document_symbol" },
 		{

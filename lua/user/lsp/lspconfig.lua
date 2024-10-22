@@ -7,7 +7,7 @@ local servers = {
 	"pyright",
 	"cssls",
 	"html",
-	"tsserver",
+	"ts_ls",
 	"bashls",
 	"jsonls",
 	"bashls",

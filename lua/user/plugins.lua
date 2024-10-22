@@ -370,8 +370,8 @@ lazy.setup({
             { "saadparwaiz1/cmp_luasnip" },
             { "lukas-reineke/cmp-under-comparator" },
             { "hrsh7th/cmp-cmdline" },
-            { "hrsh7th/cmp-nvim-lsp-document-symbol" },
-            { "hrsh7th/cmp-copilot" },
+            { "hrsh7th/cmp-nvim-lsp-document-symbol" }
+            --{ "hrsh7th/cmp-copilot" },
         },
         event = { "InsertEnter", "CmdlineEnter" },
         opts = function(_, opts)
@@ -389,7 +389,7 @@ lazy.setup({
     {
         "github/copilot.vim",
         lazy = true,
-        -- enabled = false,
+        enabled = false,
         event = "VeryLazy",
         config = function()
             vim.cmd(":Copilot enable")
