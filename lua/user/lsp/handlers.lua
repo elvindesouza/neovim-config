@@ -87,6 +87,9 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end

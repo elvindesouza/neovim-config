@@ -1,5 +1,7 @@
 High Priority
 - Go through plugins one at a time and update configs
+- Remove github copilot config
+- Fix python config to show less linting and codestyle notices
 Medium Priority
 Low Priority
 - integrate navigator

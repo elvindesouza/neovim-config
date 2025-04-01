@@ -3,6 +3,11 @@ if not status_ok then
 	return
 end
 
+local status_ok_nlspsettings, nlspsettings  = pcall(require, "nlspsettings")
+if not status_ok_nlspsettings then
+	return
+end
+
 local servers = {
 	"pyright",
 	"cssls",
@@ -16,9 +21,9 @@ local servers = {
 	"jsonls",
 	"vimls",
 	"lua_ls",
-	"marksman",
-	"sqlls",
 
+	--"marksman",
+	--"sqlls",
 	-- "yamlls",
     -- "texlab",
 	-- "jdtls",
@@ -91,6 +96,14 @@ local servers = {
 mason_lspconfig.setup({
 	ensure_installed = servers,
 	automatic_installation = true,
+})
+
+nlspsettings.setup({
+  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+  local_settings_dir = ".nlsp-settings",
+  local_settings_root_markers_fallback = { '.git' },
+  append_default_schemas = true,
+  loader = 'json'
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")

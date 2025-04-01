@@ -40,7 +40,7 @@ null_ls.setup({
         diagnostics.djlint,
         diagnostics.gitlint,
         diagnostics.hadolint,
-        diagnostics.markdownlint,
+        --diagnostics.markdownlint,
         diagnostics.mypy,
         diagnostics.perlimports,
         diagnostics.pylint.with({

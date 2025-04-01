@@ -28,7 +28,7 @@ lazy.setup({
     -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
     -- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
     -- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim
-    -- https://www.lunarvim.org/docs/plugins/core-plugins-list
+    -- https://www.lunarvim.org/docs/features/core-plugins-list
     -- https://neovimcraft.com/
     -- https://www.lazyvim.org/ List of plugins and sample configurations
     -- TODO astrovim is using a symbol outline, see which one and how to integrate
@@ -47,6 +47,7 @@ lazy.setup({
     {
         "stevearc/dressing.nvim",
         opts = {},
+        enabled = false,
         config = function()
             require("user.dressing")
         end,
@@ -55,7 +56,6 @@ lazy.setup({
     {
         "norcalli/nvim-colorizer.lua",
         lazy = true,
-        enabled = false,
         event = "VeryLazy",
         config = function()
             require("colorizer").setup()
@@ -65,7 +65,7 @@ lazy.setup({
     {
         "folke/noice.nvim", -- https://github.com/folke/noice.nvim
         lazy = true,
-        -- enabled = false,
+        enabled = false,
         config = function()
             require("user.noice")
         end,
@@ -142,6 +142,7 @@ lazy.setup({
     {
         "akinsho/toggleterm.nvim",
         lazy = true,
+        enabled = false,
         cmd = "ToggleTerm",
         config = function()
             require("user.toggleterm")
@@ -171,6 +172,7 @@ lazy.setup({
     {
         "folke/which-key.nvim",
         lazy = true,
+        enabled = false,
         config = function()
             require("user.which-key")
         end,
@@ -195,6 +197,7 @@ lazy.setup({
     {
         "ahmedkhalf/project.nvim",
         lazy = true,
+        enabled = false,
         event = "BufRead",
         config = function()
             require("user.project")
@@ -205,6 +208,7 @@ lazy.setup({
     {
         "folke/trouble.nvim",
         lazy = true,
+        enabled = false,
         dependencies = "nvim-tree/nvim-web-devicons",
         event = "VeryLazy",
         config = function()
@@ -236,6 +240,7 @@ lazy.setup({
         "lukas-reineke/indent-blankline.nvim",
         lazy = true,
         event = "VeryLazy",
+        enabled = false,
         cmd = "IndentBlanklineRefresh",
         config = function()
             require("user.indentline")
@@ -275,6 +280,7 @@ lazy.setup({
     {
         "phaazon/hop.nvim",
         lazy = true,
+        enabled = false,
         event = "BufRead",
         cmd = { "HopWordMW", "HopLineStartMW", "HopAnywhereMW", "HopPattern" },
         as = "hop",
@@ -321,6 +327,13 @@ lazy.setup({
         end,
     }, -- Configs for the Nvim LSP client
 
+
+    {
+        "tamago324/nlsp-settings.nvim",
+        lazy = true,
+        dependencies = { "williamboman/mason-lspconfig.nvim", 'rcarriga/nvim-notify', "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+    }, -- Configs for the Nvim LSP client
+
     {
         "nvimtools/none-ls.nvim",
         lazy = true,
@@ -333,6 +346,7 @@ lazy.setup({
     {
         "RRethy/vim-illuminate",
         lazy = true,
+        enabled = false,
         config = function()
             require("user.illuminate")
         end,

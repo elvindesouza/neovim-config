@@ -1,5 +1,6 @@
 local opt = vim.opt
 local cmd = vim.cmd
+local g = vim.g
 
 opt.backup = false -- creates a backup file
 opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -56,3 +57,9 @@ opt.hidden=true
 -- Set the winbar to the statusline.
 --[[ opt.wbr = opt.stl ]]
 --
+
+-- disable some default providers
+g.loaded_node_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
