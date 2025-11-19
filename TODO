@@ -1,11 +1,15 @@
-High Priority
-- Go through plugins one at a time and update configs
-- Remove github copilot config
-- Fix python config to show less linting and codestyle notices
-Medium Priority
-Low Priority
-- integrate navigator
-- integrate symbols outline
-- get documentation when hover- its working, but not enough documentation?
+New Branch (2025)
 
+AIM: Make neovim have the capabilities of VSCode in its default configuration with the language pack installed. 
+The experience must also be as smooth as the VSCode minimal state. Try to preserve keybindings. 
 
+Have a simple config that supports a wide range of filetypes. Don't integrate things that I don't use within the code editor (eg. debuggers, AI code generators, integrated terminal)
+
+Disable things that I don't use. This will avoid jankiness, and I don't have to remember so many obscure key combinations.
+
+ISSUES:
+    1. When in insert mode, I would like to press Esc to go back to normal mode. However, if a code suggestion is visible,
+    Esc only closes the suggestion popup while keeping me in insert mode
+    2. When the file explorer is open, I would like to close it by pressing Ctrl-B. I want Ctrl-B to be a toggle to open/close
+    the widget
+    3. I want to delete the config files of the plugins that I'm not using. I want to remove them from my plugins.lua file too

@@ -51,11 +51,11 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
-    callback = function()
-        vim.cmd("quit")
-    end,
-})
+    -- vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+    --     callback = function()
+    --         vim.cmd("quit") -- This makes the command line unusable
+    --     end,
+    -- })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = { "*.java" },

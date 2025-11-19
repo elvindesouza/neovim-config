@@ -3,14 +3,14 @@ local fn = vim.fn
 -- Install lazy.nvim
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+	fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -19,493 +19,498 @@ vim.opt.rtp:prepend(lazypath)
 -- Use a protected call so we don't error out on first use
 local status_ok, lazy = pcall(require, "lazy")
 if not status_ok then
-    return
+	return
 end
 
+-- The less plugins, the less easily shit breaks.
 -- Install your plugins here
 lazy.setup({
-    -- https://github.com/rockerBOO/awesome-neovim#project
-    -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
-    -- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
-    -- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim
-    -- https://www.lunarvim.org/docs/features/core-plugins-list
-    -- https://neovimcraft.com/
-    -- https://www.lazyvim.org/ List of plugins and sample configurations
-    -- TODO astrovim is using a symbol outline, see which one and how to integrate
+	-- https://github.com/rockerBOO/awesome-neovim#project
+	-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/plugins.lua
+	-- https://github.com/search?l=Lua&o=desc&q=neovim+plugin&s=stars&type=Repositories
+	-- https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim TODO astrovim is using a symbol outline, see which one and how to integrate
+	-- https://www.lunarvim.org/docs/features/core-plugins-list
+	-- https://neovimcraft.com/
+	-- https://www.lazyvim.org/ List of plugins and sample configurations
+	--
 
-    -- 1. Themes, Decorations, UI Improvements----------------------------------------------
-    {
-        "navarasu/onedark.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("user.onedark")
-        end,
-    }, -- https://github.com/navarasu/onedark.nvim colourscheme
+	-- NEOVIM CONFIGURATION FORMAT/TEMPLATE
+	-- https://github.com/nvim-lua/kickstart.nvim
 
-    -- https://github.com/stevearc/dressing.nvim
-    {
-        "stevearc/dressing.nvim",
-        opts = {},
-        enabled = false,
-        config = function()
-            require("user.dressing")
-        end,
-    }, -- Neovim plugin to improve the default vim.ui interfaces
+	-- POPULAR PLUGINS WORTH TAKING A LOOK AT
+	-- https://github.com/olimorris/codecompanion.nvim
+	-- https://github.com/stevearc/conform.nvim
+	-- https://github.com/jackMort/ChatGPT.nvim
+    -- https://github.com/iamcco/markdown-preview.nvim
+	-- https://github.com/nvim-pack/nvim-spectre
 
-    {
-        "norcalli/nvim-colorizer.lua",
-        lazy = true,
-        event = "VeryLazy",
-        config = function()
-            require("colorizer").setup()
-        end,
-    }, --A high-performance color highlighter for Neovim which has no external dependencies
+	-- 1. Themes, Decorations, UI Improvements----------------------------------------------
+	{
+		"navarasu/onedark.nvim",
+		lazy = false,
+		enabled = false,
+		priority = 1000,
+		config = function()
+			require("user.onedark")
+		end,
+	}, -- https://github.com/navarasu/onedark.nvim colourscheme
 
-    {
-        "folke/noice.nvim", -- https://github.com/folke/noice.nvim
-        lazy = true,
-        enabled = false,
-        config = function()
-            require("user.noice")
-        end,
-        event = "BufReadPost",
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            {
-                "rcarriga/nvim-notify",
-                config = function()
-                    require("user.notify")
-                end,
-            },
-        },
-    }, --Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("tokyonight")
+		end,
+		opts = {},
+	},
 
-    -- https://github.com/lewis6991/gitsigns.nvim
-    {
-        "lewis6991/gitsigns.nvim",
-        lazy = true,
-        enabled = false,
-        dependencies = "nvim-lua/plenary.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("user.gitsigns")
-        end,
-    }, -- git decorations
+	{ -- https://github.com/folke/snacks.nvim
+		-- WIP: integrating functionality from here and removing the plugins they replace along with the config files
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			animate = { enabled = true },
+			bigfile = { enabled = true },
+			dashboard = { enabled = false }, -- replaces alpha startup dashboard
+			dim = { enabled = true },
+			explorer = { enabled = true }, -- replaces nvim tree
+			indent = { enabled = true },
+			image = { enabled = true },
+			input = { enabled = true },
+			picker = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			scope = { enabled = true },
+			scroll = { enabled = true },
+			statuscolumn = { enabled = false },
+			words = { enabled = true },
+		},
+	}, --A collection of small QoL plugins for Neovim
 
-    -- https://github.com/kyazdani42/nvim-tree.lua
-    {
-        "nvim-tree/nvim-tree.lua",
-        lazy = true,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons", -- optional, for file icons
-        },
-        cmd = "NvimTreeToggle",
-        config = function()
-            require("user.nvim-tree")
-        end,
-    },             -- file explorer
+	{ -- colorizing seems to work regardless? remove soon maybe
+		"norcalli/nvim-colorizer.lua",
+		lazy = true,
+		enabled = false,
+		event = "VeryLazy",
+		config = function()
+			require("colorizer").setup()
+		end,
+	}, --A high-performance color highlighter for Neovim which has no external dependencies
 
-    -- https://github.com/akinsho/bufferline.nvim
-    {
-        "akinsho/bufferline.nvim",
-        lazy = true,
-        dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
-        event = "BufReadPost",
-        config = function()
-            require("user.bufferline")
-        end,
-    }, -- buffer list(top bar) plugin
+	-- https://github.com/lewis6991/gitsigns.nvim
+	{
+		"lewis6991/gitsigns.nvim",
+		lazy = true,
+		enabled = false,
+		dependencies = "nvim-lua/plenary.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("user.gitsigns")
+		end,
+	}, -- git decorations
 
-    {
-        "moll/vim-bbye",
-        event = "BufWinLeave",
-        lazy = true,
-    }, -- Delete buffers and close files in Vim without closing your windows or messing up your layout, written in vimscript
+	-- https://github.com/kyazdani42/nvim-tree.lua
+	-- will be removed soon, in favor of snacks.nvim explorer
+	{
+		"nvim-tree/nvim-tree.lua",
+		lazy = true,
+		enabled = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons", -- optional, for file icons
+		},
+		cmd = "NvimTreeToggle",
+		config = function()
+			require("user.nvim-tree")
+		end,
+	}, -- file explorer
 
-    -- https://github.com/nvim-lualine/lualine.nvim
-    {
-        "nvim-lualine/lualine.nvim",
-        lazy = true,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        event = "BufReadPost",
-        config = function()
-            require("user.lualine")
-        end,
-    }, -- statusline plugin(bottom bar)
+	-- https://github.com/akinsho/bufferline.nvim
+	{
+		"akinsho/bufferline.nvim",
+		lazy = true,
+		dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
+		event = "BufReadPost",
+		config = function()
+			require("user.bufferline")
+		end,
+	}, -- buffer list(top bar) plugin
 
-    -- https://github.com/akinsho/toggleterm.nvim
-    {
-        "akinsho/toggleterm.nvim",
-        lazy = true,
-        enabled = false,
-        cmd = "ToggleTerm",
-        config = function()
-            require("user.toggleterm")
-        end,
-    }, -- embedded terminal
+	-- https://github.com/nvim-lualine/lualine.nvim
+	{
+		"nvim-lualine/lualine.nvim",
+		lazy = true,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "BufReadPost",
+		config = function()
+			require("user.lualine")
+		end,
+	}, -- statusline plugin(bottom bar)
 
-    {
-        "goolord/alpha-nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons", "ahmedkhalf/project.nvim" },
-        config = function()
-            require("user.alpha")
-        end,
-    }, -- startup screen
+	-- https://github.com/akinsho/toggleterm.nvim
+	{
+		"akinsho/toggleterm.nvim",
+		lazy = true,
+		cmd = "ToggleTerm",
+		config = function()
+			require("user.toggleterm")
+		end,
+	}, -- embedded terminal
 
-    -- https://github.com/nvim-telescope/telescope.nvim
-    {
-        "nvim-telescope/telescope.nvim",
-        lazy = true,
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "Telescope",
-        module = "telescope",
-        config = function()
-            require("user.telescope")
-        end,
-    }, -- Telescope- fuzzy finder over lists. builtin pickers, sorters and previewers
+	{ -- atm some issue with syntax highlighting when opening files from alpha-nvim
+		"goolord/alpha-nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons", "ahmedkhalf/project.nvim" },
+		config = function()
+			require("user.alpha")
+		end,
+	}, -- startup screen
 
-    {
-        "folke/which-key.nvim",
-        lazy = true,
-        enabled = false,
-        config = function()
-            require("user.which-key")
-        end,
-        event = "VimEnter",
-    }, -- popup with possible key bindings of the command you started typing
+	-- https://github.com/nvim-telescope/telescope.nvim
+	{
+		"nvim-telescope/telescope.nvim",
+		lazy = true,
+		dependencies = { "nvim-lua/plenary.nvim" },
+		cmd = "Telescope",
+		module = "telescope",
+		config = function()
+			require("user.telescope")
+		end,
+	}, -- Telescope- fuzzy finder over lists. builtin pickers, sorters and previewers
 
-    -- https://github.com/ray-x/navigator.lua
-    {
-        "ray-x/navigator.lua",
-        lazy = true,
-        event = "VeryLazy",
-        enabled = false, -- will take lots of time to integrate
-        requires = {
-            { "ray-x/guihua.lua",     run = "cd lua/fzy && make" },
-            { "neovim/nvim-lspconfig" },
-        },
-        config = function()
-            require("navigator").setup()
-        end,
-    }, --Code analysis & navigation plugin for Neovim
+	{
+		"folke/which-key.nvim",
+		lazy = true,
+		enabled = true,
+		config = function()
+			require("user.which-key")
+		end,
+		event = "VimEnter",
+	}, -- popup with possible key bindings of the command you started typing
 
-    {
-        "ahmedkhalf/project.nvim",
-        lazy = true,
-        enabled = false,
-        event = "BufRead",
-        config = function()
-            require("user.project")
-        end,
-    }, -- project management with Telescope integration
+	-- https://github.com/ray-x/navigator.lua
+	{
+		"ray-x/navigator.lua",
+		lazy = true,
+		event = "VeryLazy",
+		enabled = false, -- will take lots of time to integrate
+		requires = {
+			{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+			{ "neovim/nvim-lspconfig" },
+		},
+		config = function()
+			require("navigator").setup()
+		end,
+	}, --Code analysis & navigation plugin for Neovim
 
-    --https://github.com/folke/trouble.nvim
-    {
-        "folke/trouble.nvim",
-        lazy = true,
-        enabled = false,
-        dependencies = "nvim-tree/nvim-web-devicons",
-        event = "VeryLazy",
-        config = function()
-            require("user.trouble")
-        end,
-    },
+	{
+		"ahmedkhalf/project.nvim",
+		lazy = true,
+		enabled = false,
+		event = "BufRead",
+		config = function()
+			require("user.project")
+		end,
+	}, -- project management with Telescope integration
 
-    {
-        "TimUntersberger/neogit",
-        lazy = true,
-        event = "VeryLazy",
-        dependencies = "nvim-lua/plenary.nvim",
-        enabled = false,
-    }, --https://github.com/TimUntersberger/neogit
-    -----------------end section 1---------------------------------------------------------------------
+	--https://github.com/folke/trouble.nvim
+	{
+		"folke/trouble.nvim",
+		lazy = true,
+		enabled = true,
+		dependencies = "nvim-tree/nvim-web-devicons",
+		event = "VeryLazy",
+		config = function()
+			require("user.trouble")
+		end,
+	},
 
-    -- 2. General-purpose Editing Helpers---------------------------------------------------------
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        lazy = true,
-        config = function()
-            require("user.autopairs")
-        end,
-    }, -- Autopairs, integrates with both cmp and treesitter
+	{
+		"TimUntersberger/neogit",
+		lazy = true,
+		event = "VeryLazy",
+		dependencies = "nvim-lua/plenary.nvim",
+		enabled = false,
+	}, --https://github.com/TimUntersberger/neogit
+	-----------------end section 1---------------------------------------------------------------------
 
-    -- https://github.com/lukas-reineke/indent-blankline.nvim
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        lazy = true,
-        event = "VeryLazy",
-        enabled = false,
-        cmd = "IndentBlanklineRefresh",
-        config = function()
-            require("user.indentline")
-        end,
-    }, -- adds indentation guides
+	-- 2. General-purpose Editing Helpers---------------------------------------------------------
+	-- {
+	-- TO BE REMOVED; USING mini.pairs INSTEAD
+	-- 	"windwp/nvim-autopairs",
+	-- 	event = "InsertEnter",
+	-- 	lazy = true,
+	-- 	enabled = false,
+	-- 	config = function()
+	-- 		require("user.autopairs")
+	-- 	end,
+	-- }, -- Autopairs, integrates with both cmp and treesitter
 
-    {
-        "abecodes/tabout.nvim",
-        event = "InsertEnter",
-        lazy = true,
-        config = function()
-            require("user.tabout")
-        end,
-        dependencies = { "nvim-treesitter" }, -- or require if not used so far
-    },                                  -- tabbing out from parentheses, quotes, and similar contexts
+	{
+		"abecodes/tabout.nvim",
+		event = "InsertEnter",
+		lazy = true,
+		enabled = true,
+		config = function()
+			require("user.tabout")
+		end,
+		dependencies = { "nvim-treesitter" }, -- or require if not used so far
+	}, -- tabbing out from parentheses, quotes, and similar contexts
 
-    {
-        "max397574/better-escape.nvim",
-        lazy = true,
-        event = "InsertEnter",
-        config = function()
-            require("user.better_escape")
-        end,
-    },
+	{
+		"max397574/better-escape.nvim",
+		lazy = true,
+		enabled = false,
+		event = "InsertEnter",
+		config = function()
+			require("user.better_escape")
+		end,
+	},
 
-    {
-        "kylechui/nvim-surround",
-        lazy = true,
-        version = "*",
-        event = "BufRead",
-        config = function()
-            require("user.nvim-surround")
-        end,
-    }, -- Add/change/delete surrounding delimiter pairs
+	{
+		"kylechui/nvim-surround",
+		lazy = true,
+		enabled = true,
+		version = "*",
+		event = "BufRead",
+		config = function()
+			require("user.nvim-surround")
+		end,
+	}, -- Add/change/delete surrounding delimiter pairs
 
-    -- https://github.com/phaazon/hop.nvim#usage
-    {
-        "phaazon/hop.nvim",
-        lazy = true,
-        enabled = false,
-        event = "BufRead",
-        cmd = { "HopWordMW", "HopLineStartMW", "HopAnywhereMW", "HopPattern" },
-        as = "hop",
-        config = function()
-            require("user.hop")
-        end,
-    }, -- Neovim motions on speed!
+	-- https://github.com/phaazon/hop.nvim#usage
+	{
+		"phaazon/hop.nvim",
+		lazy = true,
+		enabled = false,
+		event = "BufRead",
+		cmd = { "HopWordMW", "HopLineStartMW", "HopAnywhereMW", "HopPattern" },
+		as = "hop",
+		config = function()
+			require("user.hop")
+		end,
+	}, -- Neovim motions on speed!
 
-    {
-        "numToStr/Comment.nvim",
-        event = "InsertEnter",
-        lazy = true,
-        dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" }, -- A Neovim plugin for setting the commentstring option based on the cursor location in the file. The location is checked via treesitter queries.
-        config = function()
-            require("user.comment")
-        end,
-    }, -- commenting plugin for neovim https://github.com/numToStr/Comment.nvim
-    ---------------------------------------end section 2-------------------------------------------
+	{
+		"numToStr/Comment.nvim",
+		event = "InsertEnter",
+		lazy = true,
+		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" }, -- A Neovim plugin for setting the commentstring option based on the cursor location in the file. The location is checked via treesitter queries.
+		config = function()
+			require("user.comment")
+		end,
+	}, -- commenting plugin for neovim https://github.com/numToStr/Comment.nvim
+	---------------------------------------end section 2-------------------------------------------
 
-    ----------------- 3. LSP ----------------------------------------------------------------------------
-    {
-        "williamboman/mason.nvim",
-        lazy = true,
-        config = function()
-            require("user.lsp.mason")
-        end,
-    }, -- package manager for Neovim - install and manage LSP servers, DAP servers, linters, and formatters.
+	----------------- 3. LSP ----------------------------------------------------------------------------
+	{
+		"williamboman/mason.nvim",
+		lazy = true,
+		config = function()
+			require("user.lsp.mason")
+		end,
+	}, -- package manager for Neovim - install and manage LSP servers, DAP servers, linters, and formatters.
 
-    {
-        "williamboman/mason-lspconfig.nvim",
-        lazy = true,
-        event = "BufRead",
-        config = function()
-            require("user.lsp.lspconfig")
-        end,
-    }, -- bridges mason.nvim with the lspconfig plugin
+	{
+		"williamboman/mason-lspconfig.nvim",
+		lazy = true,
+		event = "BufRead",
+		config = function()
+			require("user.lsp.lspconfig")
+		end,
+	}, -- bridges mason.nvim with the lspconfig plugin
 
-    {
-        "neovim/nvim-lspconfig",
-        lazy = true,
-        dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
-        config = function()
-            require("user.lsp.handlers").setup()
-        end,
-    }, -- Configs for the Nvim LSP client
+	{
+		"neovim/nvim-lspconfig",
+		lazy = true,
+		dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+		config = function()
+			require("user.lsp.handlers").setup()
+		end,
+	}, -- Configs for the Nvim LSP client
 
+	{
+		"tamago324/nlsp-settings.nvim",
+		lazy = true,
+		dependencies = {
+			"williamboman/mason-lspconfig.nvim",
+			"rcarriga/nvim-notify",
+			"williamboman/mason.nvim",
+			"neovim/nvim-lspconfig",
+		},
+	}, -- Configs for the Nvim LSP client
 
-    {
-        "tamago324/nlsp-settings.nvim",
-        lazy = true,
-        dependencies = { "williamboman/mason-lspconfig.nvim", 'rcarriga/nvim-notify', "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-    }, -- Configs for the Nvim LSP client
+	{
+		"nvimtools/none-ls.nvim",
+		lazy = true,
+		enabled = true,
+		event = "BufReadPost",
+		config = function()
+			require("user.lsp.null-ls")
+		end,
+	}, -- for formatters and linters. Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
-    {
-        "nvimtools/none-ls.nvim",
-        lazy = true,
-        event = "BufReadPost",
-        config = function()
-            require("user.lsp.null-ls")
-        end,
-    }, -- for formatters and linters. Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+	{
+		"RRethy/vim-illuminate",
+		lazy = true,
+		enabled = false,
+		config = function()
+			require("user.illuminate")
+		end,
+	}, -- highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching
+	--------------------------------- end section 3 -------------------------------------------------------
 
-    {
-        "RRethy/vim-illuminate",
-        lazy = true,
-        enabled = false,
-        config = function()
-            require("user.illuminate")
-        end,
-    }, -- highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching
-    --------------------------------- end section 3 -------------------------------------------------------
+	-- 4. Autocompletion -----------------------------------------------------------------
+	{
+		"hrsh7th/nvim-cmp", -- https://github.com/hrsh7th/nvim-cmp
+		lazy = true,
+		dependencies = {
+			{ "L3MON4D3/LuaSnip" },
+			{
+				"rafamadriz/friendly-snippets",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{
+				-- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
+				"hrsh7th/cmp-nvim-lsp-signature-help",
+				enabled = true,
+			},
+			{
+				-- https://github.com/ray-x/lsp_signature.nvim
+				"ray-x/lsp_signature.nvim",
+				config = function()
+					require("user.lsp-signature")
+				end,
+			},
+			{ "hrsh7th/cmp-path" },
+			{ "hrsh7th/cmp-nvim-lua" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "lukas-reineke/cmp-under-comparator" },
+			{ "hrsh7th/cmp-cmdline" },
+			{ "hrsh7th/cmp-nvim-lsp-document-symbol" },
+		},
+		event = { "InsertEnter", "CmdlineEnter" },
+		opts = function(_, opts)
+			opts.sources = opts.sources or {}
+			table.insert(opts.sources, {
+				name = "lazydev",
+				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+			})
+		end,
+		config = function()
+			require("user.cmp")
+		end,
+	},
+	-------------------------------------------------end---------------------------------
 
-    -- 4. Autocompletion -----------------------------------------------------------------
-    {
-        "hrsh7th/nvim-cmp", -- https://github.com/hrsh7th/nvim-cmp
-        lazy = true,
-        dependencies = {
-            { "L3MON4D3/LuaSnip" },
-            {
-                "rafamadriz/friendly-snippets",
-                config = function()
-                    require("luasnip.loaders.from_vscode").lazy_load()
-                end,
-            },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-nvim-lsp" },
-            {
-                -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
-                "hrsh7th/cmp-nvim-lsp-signature-help",
-                enabled = true,
-            },
-            {
-                -- https://github.com/ray-x/lsp_signature.nvim
-                "ray-x/lsp_signature.nvim",
-                config = function()
-                    require("user.lsp-signature")
-                end,
-            },
-            { "hrsh7th/cmp-path" },
-            { "hrsh7th/cmp-nvim-lua" },
-            { "saadparwaiz1/cmp_luasnip" },
-            { "lukas-reineke/cmp-under-comparator" },
-            { "hrsh7th/cmp-cmdline" },
-            { "hrsh7th/cmp-nvim-lsp-document-symbol" }
-            --{ "hrsh7th/cmp-copilot" },
-        },
-        event = { "InsertEnter", "CmdlineEnter" },
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
-        end,
-        config = function()
-            require("user.cmp")
-        end,
-    },
+	-- 5. Treesitter -----------------------------------------------------------------------
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = true,
+		dependencies = {
+			{
+				-- context of the currently visible buffer contents
+				"nvim-treesitter/nvim-treesitter-context",
+				lazy = true,
+				cmd = "TSContextToggle",
+				config = function()
+					require("user.nvim-treesitter-context")
+				end,
+			},
+			{
+				--https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+				"nvim-treesitter/nvim-treesitter-textobjects",
+			},
+		},
+		event = "VimEnter",
+		build = ":TSUpdate",
+		config = function()
+			require("user.treesitter")
+		end,
+	},
 
-    {
-        "github/copilot.vim",
-        lazy = true,
-        enabled = false,
-        event = "VeryLazy",
-        config = function()
-            vim.cmd(":Copilot enable")
-        end,
-    }, --A high-performance color highlighter for Neovim which has no external dependencies
-    -------------------------------------------------end---------------------------------
+	-- https://github.com/windwp/nvim-ts-autotag
+	{
+		"windwp/nvim-ts-autotag",
+		lazy = true,
+		enabled = false,
+		event = "InsertEnter",
+	}, -- auto close and auto rename html tag
+	----------------------------------end--------------------------------------------------
 
-    -- 5. Treesitter -----------------------------------------------------------------------
-    {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = true,
-        dependencies = {
-            {
-                -- context of the currently visible buffer contents
-                "nvim-treesitter/nvim-treesitter-context",
-                lazy = true,
-                cmd = "TSContextToggle",
-                config = function()
-                    require("user.nvim-treesitter-context")
-                end,
-            },
-            {
-                --https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-                "nvim-treesitter/nvim-treesitter-textobjects",
-            },
-        },
-        event = "VimEnter",
-        build = ":TSUpdate",
-        config = function()
-            require("user.treesitter")
-        end,
-    },
+	-- 6. Debugging/DAP -----------------------------------------------------------------------
+	-- https://github.com/mfussenegger/nvim-dap
+	{
+		"mfussenegger/nvim-dap",
+		lazy = true,
+		enabled = false,
+		cmd = { "BreakpointToggle", "Debug", "DapREPL" },
+		config = function()
+			require("user.dap")
+		end,
+	}, -- Debug Adapter Protocol client implementation for Neovim
 
-    -- https://github.com/windwp/nvim-ts-autotag
-    {
-        "windwp/nvim-ts-autotag",
-        lazy = true,
-        enabled = false,
-        event = "InsertEnter",
-    }, -- auto close and auto rename html tag
-    ----------------------------------end--------------------------------------------------
+	{
+		"rcarriga/nvim-dap-ui",
+		lazy = true,
+		enabled = false,
+		dependencies = { "mfussenegger/nvim-dap" },
+	}, -- A UI for nvim-dap
 
-    -- 6. Debugging/DAP -----------------------------------------------------------------------
-    -- https://github.com/mfussenegger/nvim-dap
-    {
-        "mfussenegger/nvim-dap",
-        lazy = true,
-        enabled = false,
-        cmd = { "BreakpointToggle", "Debug", "DapREPL" },
-        config = function()
-            require("user.dap")
-        end,
-    }, -- Debug Adapter Protocol client implementation for Neovim
+	-- Automatically set up your configuration
+	-- managing several debuggers for Nvim-dap
+	{
+		"ravenxrz/DAPInstall.nvim",
+		lazy = true,
+		enabled = false,
+	},
+	-------------------------end---------------------------------------------------
 
-    {
-        "rcarriga/nvim-dap-ui",
-        lazy = true,
-        enabled = false,
-        dependencies = { "mfussenegger/nvim-dap" },
-    }, -- A UI for nvim-dap
+	-- Symbol Tree--------------------------------------------------
+	-- https://github.com/stevearc/aerial.nvim
+	{
+		"stevearc/aerial.nvim",
+		opts = {},
+		lazy = true,
+		enabled = false,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("user.aerial")
+		end,
+	},
 
-    -- Automatically set up your configuration
-    -- managing several debuggers for Nvim-dap
-    {
-        "ravenxrz/DAPInstall.nvim",
-        lazy = true,
-        enabled = false,
-    },
-    -------------------------end---------------------------------------------------
+	---------------------------------Misc Plugins-------------------------------------
 
-    -- Symbol Tree--------------------------------------------------
-    -- https://github.com/stevearc/aerial.nvim
-    {
-        'stevearc/aerial.nvim',
-        opts = {},
-        lazy=true,
-        enabled=false,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
-        },
-        config = function()
-            require("user.aerial")
-        end,
-    },
+	{
+		"jghauser/follow-md-links.nvim",
+		lazy = true,
+		enabled = false,
+		ft = { "markdown" },
+	},
 
-    ---------------------------------Misc Plugins-------------------------------------
+	{
+		"folke/lazydev.nvim",
+		lazy = true,
+		ft = "lua", -- only load on lua files
+	},
 
-    {
-        "jghauser/follow-md-links.nvim",
-        lazy = true,
-        enabled = false,
-        ft = { "markdown" },
-    },
-
-    {
-        "folke/lazydev.nvim",
-        lazy = true,
-        ft = "lua", -- only load on lua files
-    },
-
-    -- https://github.com/nvim-neorg/neorg
-    -- https://github.com/nvim-pack/nvim-spectre
-    -- https://github.com/kdheepak/lazygit.nvim
+	{ -- WIP integrating.
+		"nvim-mini/mini.nvim",
+		lazy = true,
+		event = "BufReadPost",
+		version = false,
+		config = function()
+			require("mini.pairs").setup()
+			require("mini.basics").setup()
+		end,
+		-- A big library of independent Lua modules, some of which can replace existing modules here
+	}, -- https://github.com/nvim-mini/mini.nvim/tree/main
 })

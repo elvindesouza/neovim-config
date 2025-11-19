@@ -62,24 +62,48 @@ local function lsp_keymaps(bufnr)
 		silent = true,
 	}
 	local keymap = vim.api.nvim_buf_set_keymap
-	keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap(bufnr, "n", "gd", "<cmd>Trouble lsp_definitions<CR>", opts)
-	keymap(bufnr, "n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	keymap(bufnr, "n", "gI", "<cmd>Trouble lsp_implementations<CR>", opts)
-	keymap(bufnr, "n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
-	keymap(bufnr, "n", "<S-F12>", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	keymap(bufnr, "n", "<F6>", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", opts)
+
+	------------------------- VSCode-style bindings------------------------------------
+
+	-- Ctrl+. for quickfix
+	keymap(bufnr, "n", "<C-.>", "<cmd>Trouble quickfix<cr>", opts)
+
+	-- Shift+F12 to show references
+	keymap(bufnr, "n", "<S-F12>", "<cmd>Trouble lsp_references<CR>", opts)
+
+	-- F12 to show definition
+	keymap(bufnr, "n", "<F12>", "<cmd>Trouble lsp_definitions<CR>", opts)
+
+	-- Ctrl+Shift+I to format document
 	keymap(bufnr, "n", "<C-S-i>", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", opts)
-	keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts)
-	keymap(bufnr, "n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts)
-	keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-	keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-	keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
+
+	-- F2 to rename symbol
+	keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+
+    -- F8/Shift+F8 to go to next/previous error or warning
 	keymap(bufnr, "n", "<F8>", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
 	keymap(bufnr, "n", "<S-F8>", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-	keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+
+    -- Ctrl+Shift+M to show the problems panel
+    keymap(bufnr, "n", "<C-S-m>", "<cmd>Trouble diagnostics<CR>", opts)
+
+    -- Ctrl+T to show all symbols (symbol outline)
+    keymap(bufnr, "n", "<C-S-m>", "<cmd>Trouble lsp_document_symbols<CR>", opts) -- alternatively use Trouble symbols
+
+	------------------------------------------------------------------------------
+
+	keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	-- keymap(bufnr, "n", "gd", "<cmd>Trouble lsp_definitions<CR>", opts)
+	-- keymap(bufnr, "n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	keymap(bufnr, "n", "gI", "<cmd>Trouble lsp_implementations<CR>", opts)
+	-- keymap(bufnr, "n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
+	-- keymap(bufnr, "n", "<S-F12>", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	-- keymap(bufnr, "n", "<F6>", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", opts)
+	keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+	-- keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
+	-- keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
 	keymap(bufnr, "n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	keymap(bufnr, "n", "<leader>lq", "<cmd>Trouble loclist<CR>", opts)
 	keymap(bufnr, "n", "<leader>D", "<cmd>Trouble lsp_type_definitions<CR>", opts)
@@ -87,8 +111,10 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false

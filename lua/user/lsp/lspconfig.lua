@@ -140,5 +140,6 @@ for _, server in pairs(servers) do
 		opts = vim.tbl_deep_extend("force", clangd_opts, opts)
 	end
 
-	lspconfig[server].setup(opts)
+	vim.lsp.config[server] = opts
+	vim.lsp.enable(server)
 end
