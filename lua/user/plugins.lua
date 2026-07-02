@@ -41,7 +41,7 @@ lazy.setup({
 	-- https://github.com/olimorris/codecompanion.nvim
 	-- https://github.com/stevearc/conform.nvim
 	-- https://github.com/jackMort/ChatGPT.nvim
-    -- https://github.com/iamcco/markdown-preview.nvim
+	-- https://github.com/iamcco/markdown-preview.nvim
 	-- https://github.com/nvim-pack/nvim-spectre
 
 	-- 1. Themes, Decorations, UI Improvements----------------------------------------------
@@ -153,7 +153,7 @@ lazy.setup({
 	{
 		"akinsho/toggleterm.nvim",
 		lazy = true,
-		cmd = "ToggleTerm",
+        enabled=false,
 		config = function()
 			require("user.toggleterm")
 		end,
@@ -182,27 +182,12 @@ lazy.setup({
 	{
 		"folke/which-key.nvim",
 		lazy = true,
-		enabled = true,
+		enabled = false,
 		config = function()
 			require("user.which-key")
 		end,
 		event = "VimEnter",
 	}, -- popup with possible key bindings of the command you started typing
-
-	-- https://github.com/ray-x/navigator.lua
-	{
-		"ray-x/navigator.lua",
-		lazy = true,
-		event = "VeryLazy",
-		enabled = false, -- will take lots of time to integrate
-		requires = {
-			{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-			{ "neovim/nvim-lspconfig" },
-		},
-		config = function()
-			require("navigator").setup()
-		end,
-	}, --Code analysis & navigation plugin for Neovim
 
 	{
 		"ahmedkhalf/project.nvim",
@@ -315,31 +300,30 @@ lazy.setup({
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = true,
-		event = "BufRead",
-		config = function()
-			require("user.lsp.lspconfig")
-		end,
+		event = "BufReadPre",
+        dependencies = { "williamboman/mason.nvim" },
 	}, -- bridges mason.nvim with the lspconfig plugin
 
 	{
 		"neovim/nvim-lspconfig",
 		lazy = true,
-		dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+        event = { "BufReadPre", "BufNewFile" },
+		dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
 		config = function()
-			require("user.lsp.handlers").setup()
+			require("user.lsp")
 		end,
 	}, -- Configs for the Nvim LSP client
 
-	{
-		"tamago324/nlsp-settings.nvim",
-		lazy = true,
-		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-			"rcarriga/nvim-notify",
-			"williamboman/mason.nvim",
-			"neovim/nvim-lspconfig",
-		},
-	}, -- Configs for the Nvim LSP client
+	-- {
+	-- 	"tamago324/nlsp-settings.nvim",
+	-- 	lazy = true,
+	-- 	dependencies = {
+	-- 		"williamboman/mason-lspconfig.nvim",
+	-- 		"rcarriga/nvim-notify",
+	-- 		"williamboman/mason.nvim",
+	-- 		"neovim/nvim-lspconfig",
+	-- 	},
+	-- }, -- Configs for the Nvim LSP client
 
 	{
 		"nvimtools/none-ls.nvim",
@@ -489,17 +473,19 @@ lazy.setup({
 
 	---------------------------------Misc Plugins-------------------------------------
 
+	-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+	-- used for completion, annotations and signatures of Neovim apis
+	{
+		"folke/lazydev.nvim",
+		lazy = true,
+		ft = "lua", -- only load on lua files
+	},
+
 	{
 		"jghauser/follow-md-links.nvim",
 		lazy = true,
 		enabled = false,
 		ft = { "markdown" },
-	},
-
-	{
-		"folke/lazydev.nvim",
-		lazy = true,
-		ft = "lua", -- only load on lua files
 	},
 
 	{ -- WIP integrating.

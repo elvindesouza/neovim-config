@@ -24,7 +24,7 @@ null_ls.setup({
     --     new_client.offset_encoding = "utf-16"
     -- end,
     sources = {
-        code_actions.proselint,
+        -- code_actions.proselint,
         code_actions.refactoring,
 
         completion.spell.with({
@@ -35,7 +35,7 @@ null_ls.setup({
         diagnostics.codespell,
         -- diagnostics.mdl,
         diagnostics.mypy,
-        diagnostics.proselint,
+        -- diagnostics.proselint,
         diagnostics.commitlint,
         diagnostics.djlint,
         diagnostics.gitlint,
